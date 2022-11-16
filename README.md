@@ -3,5 +3,5 @@
 ## Project members
 
 * Erfan Mojibi
-* Sorush Sherafat
+* Soroush Sherafat
 * Hirbod Behnam
