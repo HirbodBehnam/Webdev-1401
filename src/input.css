@@ -11,3 +11,23 @@
     font-style: normal;
     font-display: auto;
 }
+
+/* Background of all pages */
+.page-background {
+    @apply bg-blue-50 dark:bg-gray-900
+}
+
+/* Primary buttons of pages */
+.btn-primary {
+    @apply bg-blue-800 text-white hover:bg-blue-400 hover:text-black transition-colors duration-300 uppercase
+}
+
+/* Base of textfields */
+.form-textfield {
+    @apply shadow appearance-none border rounded text-gray-700 leading-tight
+}
+
+/* Simple link */
+.link {
+    @apply text-blue-700 no-underline hover:underline
+}
