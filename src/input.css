@@ -31,3 +31,7 @@
 .link {
     @apply text-blue-700 no-underline hover:underline
 }
+
+.form-label {
+    @apply block text-gray-700 font-bold mb-2
+}
