@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/dist/output.css" rel="stylesheet">
+    <link href="../dist/output.css" rel="stylesheet">
     <title>ورود | Crow Airlines</title>
 </head>
-<body class="bg-blue-50 dark:bg-gray-900">
+<body class="bg-blue-50 dark:bg-gray-900 font-yekan" dir="rtl">
 <div class="flex flex-col h-screen items-center">
     <div class="m-auto w-full max-w-sm">
         <div class="bg-white shadow-md rounded pt-2 px-6">
@@ -14,29 +14,29 @@
                 <img src="/assets/logo.png" alt="logo" width="80" class="mx-auto"/>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                        Email
+                        ایمیل
                     </label>
-                    <input id="email" type="email" placeholder="Email"
-                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                           id="email" type="email" placeholder="Email" required dir="ltr">
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                        Password
+                        رمزعبور
                     </label>
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                           id="password" type="password" placeholder="Password">
+                           id="password" type="password" placeholder="Password" required dir="ltr">
                 </div>
-                <button class="w-full h-12 uppercase font-medium tracking-wider bg-slate-900 text-white hover:bg-slate-400 hover:text-black transition-colors duration-300 my-1"
+                <button class="w-full h-12 uppercase font-medium text-lg tracking-wider bg-slate-900 text-white hover:bg-slate-400 hover:text-black transition-colors duration-300 my-1"
                         type="submit">
-                    Login
+                    ورود
                 </button>
-                <button class="w-full h-12 uppercase font-medium tracking-wider bg-slate-200 text-black hover:bg-slate-800 hover:text-white transition-colors duration-300 my-1">
-                    Sign Up
+                <button class="w-full h-12 uppercase font-medium text-lg tracking-wider bg-slate-200 text-black hover:bg-slate-800 hover:text-white transition-colors duration-300 my-1">
+                    ثبت نام
                 </button>
-                <a href="#" class="underline">Forgot my password</a>
+                <a href="#" class="underline">رمزعبورم را فراموش کردم!</a>
             </form>
         </div>
-        <p class="text-center text-gray-500 text-xs mt-2">
+        <p dir="ltr" class="text-center text-gray-500 text-xs mt-2">
             &copy;2022 Mohebi Corp. All rights reserved.
         </p>
     </div>
