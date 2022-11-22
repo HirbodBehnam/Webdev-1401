@@ -27,6 +27,10 @@
     @apply shadow appearance-none border rounded text-gray-700 leading-tight
 }
 
+.search-textfield {
+    @apply appearance-none text-gray-700 leading-tight leading-tight p-1
+}
+
 /* Simple link */
 .link {
     @apply text-blue-700 no-underline hover:underline
