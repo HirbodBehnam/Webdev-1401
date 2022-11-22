@@ -696,6 +696,7 @@ video {
 /* Primary buttons of pages */
 
 .btn-primary {
+  border-radius: 0.375rem;
   --tw-bg-opacity: 1;
   background-color: rgb(30 64 175 / var(--tw-bg-opacity));
   text-transform: uppercase;
