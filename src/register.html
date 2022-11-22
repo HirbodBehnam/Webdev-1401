@@ -1,11 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../dist/output.css" rel="stylesheet">
     <link href="../dist/global.css" rel="stylesheet">
-    <title>ورود | Crow Airlines</title>
+    <title>ثبت نام | Crow Airlines</title>
 </head>
 <body class="page-background font-yekan" dir="rtl">
 <div class="flex flex-col h-screen items-center">
@@ -21,18 +21,42 @@
                            id="email" type="email" placeholder="Email" required dir="ltr">
                 </div>
                 <div class="mb-4">
+                    <label class="form-label text-md" for="name">
+                        نام و نام خانوادگی
+                    </label>
+                    <div class="flex flex-row">
+                        <input class="form-textfield w-full py-2 px-3 ml-1"
+                               id="name" type="text" placeholder="Name" required>
+                        <input class="form-textfield w-full py-2 px-3 mr-1"
+                               id="lastname" type="text" placeholder="Last Name" required>
+                    </div>
+                </div>
+                <div class="mb-4">
                     <label class="form-label text-md" for="password">
                         رمزعبور
                     </label>
                     <input class="form-textfield w-full py-2 px-3"
                            id="password" type="password" placeholder="Password" required dir="ltr">
                 </div>
+                <div class="mb-4">
+                    <label class="form-label text-md" for="confirm-password">
+                        تکرار رمزعبور
+                    </label>
+                    <input class="form-textfield w-full py-2 px-3"
+                           id="confirm-password" type="password" placeholder="Confirm Password" required dir="ltr">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label text-md" for="passport-number">
+                        شماره پاسپورت
+                    </label>
+                    <input class="form-textfield w-full py-2 px-3"
+                           id="passport-number" type="text" placeholder="Passport Number" required dir="ltr">
+                </div>
                 <button class="btn-primary w-full h-12 font-medium text-lg my-2" type="submit">
-                    ورود
+                    ثبت نام
                 </button>
                 <br/>
-                <p class="mx-1">اکانت ندارید؟ <a href="register.html" class="link">ساخت
-                    اکانت</a></p>
+                <p class="mx-1">اکانت دارید؟ <a href="login.html" class="link">وارد شوید</a></p>
             </form>
         </div>
         <p dir="ltr" class="text-center text-gray-500 text-xs mt-2">
