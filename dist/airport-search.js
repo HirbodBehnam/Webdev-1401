@@ -5,7 +5,7 @@
  */
 function airportSearch(a) {
     const MAX_AIRPORTS = 5;
-    const AIRPORTS = ["Mehrabad", "Karaj", "Babol", "Tehran", "Mashhad", "Yazd", "Mazandaran"];
+    const AIRPORTS = ["سیرجان", "یزد", "تهران", "بابل", "کرج", "اهواز", "کردستان", "تبریز", "رشت", "اصفهان", "مشهد"];
     if (a === "")
         return AIRPORTS.slice(0, MAX_AIRPORTS);
     return AIRPORTS.filter((value) => value.toLowerCase().includes(a.toLowerCase())).slice(0, MAX_AIRPORTS);
