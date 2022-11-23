@@ -7,12 +7,16 @@
     <script src="../dist/airport-search.js"></script>
     <script>
         function searchBoxFocusFunction(caller) {
-            document.getElementById(caller.id + "PlaceholderParent").classList.remove("hidden");
+            const classes = document.getElementById(caller.id + "PlaceholderParent").classList;
+            classes.remove("opacity-0", "scale-95", "ease-in");
+            classes.add("opacity-100", "scale-100", "ease-out");
             searchBoxHandleSearch(caller);
         }
 
         function searchBoxBlurFunction(caller) {
-            document.getElementById(caller.id + "PlaceholderParent").classList.add("hidden")
+            const classes = document.getElementById(caller.id + "PlaceholderParent").classList;
+            classes.add("opacity-0", "scale-95", "ease-in");
+            classes.remove("opacity-100", "scale-100", "ease-out");
         }
 
         function searchBoxHandleSearch(caller) {
@@ -43,7 +47,7 @@
                            id="destination" type="text" placeholder="مقصد"
                            onclick="searchBoxFocusFunction(this)" onblur="searchBoxBlurFunction(this)"
                            oninput="searchBoxHandleSearch(this)">
-                    <div class="search-suggestion-placeholder hidden"
+                    <div class="search-suggestion-placeholder opacity-0 scale-95"
                          role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"
                          id="destinationPlaceholderParent">
                         <div class="py-1" role="none" id="destinationPlaceholder">
