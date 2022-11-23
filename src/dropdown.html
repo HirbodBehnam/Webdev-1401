@@ -6,23 +6,30 @@
     <link href="../dist/output.css" rel="stylesheet">
     <script src="../dist/airport-search.js"></script>
     <script>
-        function myFocusFunction() {
-            document.getElementById("destinationPlaceholderParent").classList.remove("hidden");
+        function searchBoxFocusFunction(caller) {
+            document.getElementById(caller.id + "PlaceholderParent").classList.remove("hidden");
+            searchBoxHandleSearch(caller);
         }
 
-        function myBlurFunction() {
-            document.getElementById("destinationPlaceholderParent").classList.add("hidden")
+        function searchBoxBlurFunction(caller) {
+            document.getElementById(caller.id + "PlaceholderParent").classList.add("hidden")
         }
 
-        function handleSearch() {
-            const airports = airportSearch(document.getElementById("destination").value);
-            const placeholder = document.getElementById("destinationPlaceholder");
+        function searchBoxHandleSearch(caller) {
+            const airports = airportSearch(caller.value);
+            const placeholder = document.getElementById(caller.id + "Placeholder");
             placeholder.innerHTML = "";
             airports.forEach(airport => {
-                placeholder.innerHTML += `<a href="#"
-                               class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 block px-4 py-2 text-sm"
-                               role="menuitem" tabindex="-1" id="menu-item-0">${airport}</a>`;
+                placeholder.innerHTML += `<span
+                               class="search-result-text" role="menuitem" tabindex="-1"
+                               onmousedown="searchBoxMenuItemClicked('${caller.id}','${airport}')">${airport}</span>`;
             });
+        }
+
+        function searchBoxMenuItemClicked(toChangeCallerID, value) {
+            const input = document.getElementById(toChangeCallerID);
+            input.value = value;
+            input.blur();
         }
     </script>
 </head>
@@ -32,10 +39,11 @@
         <div class="bg-white shadow-md rounded pt-2 px-6">
             <form method="post" action="#" class="my-4 pb-4">
                 <div class="relative inline-block w-full">
-                    <input class="form-textfield w-full py-2 px-3"
+                    <input class="form-textfield w-full py-2 px-3" autocomplete="off"
                            id="destination" type="text" placeholder="Destination" required dir="ltr"
-                           onclick="myFocusFunction()" onblur="myBlurFunction()" oninput="handleSearch()">
-                    <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
+                           onclick="searchBoxFocusFunction(this)" onblur="searchBoxBlurFunction(this)"
+                           oninput="searchBoxHandleSearch(this)">
+                    <div class="search-suggestion-placeholder hidden"
                          role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"
                          id="destinationPlaceholderParent">
                         <div class="py-1" role="none" id="destinationPlaceholder">
