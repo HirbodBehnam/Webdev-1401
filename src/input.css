@@ -12,6 +12,16 @@
     font-display: auto;
 }
 
+/* https://rastikerdar.github.io/vazirmatn/ */
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('/assets/vazir/Vazirmatn[wght].woff2') format('woff2 supports variations'),
+    url('/assets/vazir/Vazirmatn[wght].woff2') format('woff2-variations');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* Background of all pages */
 .page-background {
     @apply bg-blue-50 dark:bg-gray-900
@@ -27,6 +37,10 @@
     @apply shadow appearance-none border rounded text-gray-700 leading-tight
 }
 
+.search-textfield {
+    @apply appearance-none text-gray-700 leading-tight leading-tight p-1
+}
+
 /* Simple link */
 .link {
     @apply text-blue-700 no-underline hover:underline
@@ -34,4 +48,14 @@
 
 .form-label {
     @apply block text-gray-700 font-bold mb-2
+}
+
+.search-result-text {
+    @apply text-gray-700 hover:bg-gray-200 hover:text-gray-900 block px-4 py-2 text-sm cursor-pointer
+    transition-colors duration-100
+}
+
+.search-suggestion-placeholder {
+    @apply absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-gray-50 shadow-lg ring-1 ring-black ring-opacity-5 text-right font-vazir
+    transition duration-150 transform
 }

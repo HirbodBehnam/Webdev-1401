@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>Dropdown</title>
+    <link href="../dist/output.css" rel="stylesheet">
+    <script src="../dist/airport-search.js"></script>
+    <script>
+        function searchBoxFocusFunction(caller) {
+            const classes = document.getElementById(caller.id + "PlaceholderParent").classList;
+            classes.remove("opacity-0", "scale-95", "ease-in");
+            classes.add("opacity-100", "scale-100", "ease-out");
+            searchBoxHandleSearch(caller);
+        }
+
+        function searchBoxBlurFunction(caller) {
+            const classes = document.getElementById(caller.id + "PlaceholderParent").classList;
+            classes.add("opacity-0", "scale-95", "ease-in");
+            classes.remove("opacity-100", "scale-100", "ease-out");
+        }
+
+        function searchBoxHandleSearch(caller) {
+            const airports = airportSearch(caller.value);
+            const placeholder = document.getElementById(caller.id + "Placeholder");
+            placeholder.innerHTML = "";
+            airports.forEach(airport => {
+                placeholder.innerHTML += `<span
+                               class="search-result-text" role="menuitem" tabindex="-1"
+                               onmousedown="searchBoxMenuItemClicked('${caller.id}','${airport}')">${airport}</span>`;
+            });
+        }
+
+        function searchBoxMenuItemClicked(toChangeCallerID, value) {
+            const input = document.getElementById(toChangeCallerID);
+            input.value = value;
+            input.blur();
+        }
+    </script>
+</head>
+<body class="page-background font-yekan" dir="rtl">
+<div class="flex flex-col h-screen items-center">
+    <div class="m-auto w-full max-w-sm">
+        <div class="bg-white shadow-md rounded pt-2 px-6">
+            <form method="post" action="#" class="my-4 pb-4">
+                <div class="relative inline-block w-full">
+                    <input class="form-textfield w-full py-2 px-3" autocomplete="off"
+                           id="destination" type="text" placeholder="مقصد"
+                           onclick="searchBoxFocusFunction(this)" onblur="searchBoxBlurFunction(this)"
+                           oninput="searchBoxHandleSearch(this)">
+                    <div class="search-suggestion-placeholder opacity-0 scale-95"
+                         role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"
+                         id="destinationPlaceholderParent">
+                        <div class="py-1" role="none" id="destinationPlaceholder">
+                            <!-- Content of search bar goes here -->
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <p dir="ltr" class="text-center text-gray-500 text-xs mt-2">
+            &copy;2022 Mohebi Corp. All rights reserved.
+        </p>
+    </div>
+</div>
+</body>
+</html>
