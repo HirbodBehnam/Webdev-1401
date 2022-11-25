@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../dist/output.css" rel="stylesheet">
     <script src="js/airport-search.js"></script>
+    <link rel="stylesheet" href="../dist/jalalidatepicker.min.css">
+    <script type="text/javascript"
+            src="../dist/jalalidatepicker.min.js"></script>
     <title>Search</title>
 </head>
 <body class="font-yekan" dir="rtl">
 <div class="m-auto w-full main-container">
     <form method="post" action="#" class="bg-white shadow-md rounded py-10 px-1 md:flex md:flex-row">
+        <!-- Airports -->
         <div class="relative">
             <label class="form-label text-md" for="departureLocation">
                 مبدا
@@ -27,7 +31,7 @@
             </div>
         </div>
         <div class="relative">
-            <label class="form-label text-md" for="departureLocation">
+            <label class="form-label text-md" for="destinationLocation">
                 مقصد
             </label>
             <input class="form-textfield w-full py-2 px-3"
@@ -42,7 +46,39 @@
                 </div>
             </div>
         </div>
+        <!-- Space -->
+        <div class="px-2"></div>
+        <!-- Dates -->
+        <div>
+            <label class="form-label text-md" for="departureTime">
+                تاریخ رفت
+            </label>
+            <input id="departureTime" class="form-textfield w-full py-2 px-3" data-jdp>
+        </div>
+        <div>
+            <label class="form-label text-md" for="returnTime">
+                تاریخ رفت
+            </label>
+            <input id="returnTime" class="form-textfield w-full py-2 px-3" data-jdp>
+        </div>
+        <!-- Space -->
+        <div class="px-2"></div>
+        <!-- Passengers -->
+        <div>
+            <label class="form-label text-md" for="passengersCount">
+                تاریخ رفت
+            </label>
+            <input id="passengersCount" class="form-textfield w-full py-2 px-3" type="number" min="1" value="1">
+        </div>
+        <!-- Space -->
+        <div class="px-2"></div>
+        <button class="btn-primary h-12 font-medium text-lg my-2 px-10" type="submit">
+            جست و جو
+        </button>
     </form>
 </div>
+<script type="application/javascript">
+    jalaliDatepicker.startWatch();
+</script>
 </body>
 </html>
