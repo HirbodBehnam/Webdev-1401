@@ -17,7 +17,7 @@ function airportSearch(a) {
  */
 function searchBoxFocusFunction(caller) {
     const classes = document.getElementById(caller.id + "PlaceholderParent").classList;
-    classes.remove("opacity-0", "scale-95", "ease-in");
+    classes.remove("opacity-0", "scale-95", "ease-in", "hidden");
     classes.add("opacity-100", "scale-100", "ease-out");
     searchBoxHandleSearch(caller);
 }
@@ -30,6 +30,7 @@ function searchBoxBlurFunction(caller) {
     const classes = document.getElementById(caller.id + "PlaceholderParent").classList;
     classes.add("opacity-0", "scale-95", "ease-in");
     classes.remove("opacity-100", "scale-100", "ease-out");
+    setTimeout(() => classes.add("hidden"), 100); // disable clicking on it
 }
 
 function searchBoxHandleSearch(caller) {

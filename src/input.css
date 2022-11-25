@@ -56,7 +56,7 @@
 }
 
 .search-suggestion-placeholder {
-    @apply absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-gray-50 shadow-lg ring-1 ring-black ring-opacity-5 text-right font-vazir
+    @apply absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-gray-50 shadow-lg ring-1 ring-black ring-opacity-5 text-right font-vazir
     transition duration-150 transform
 }
 
