@@ -12,9 +12,9 @@
 </head>
 <body class="font-yekan" dir="rtl">
 <div class="m-auto w-full main-container">
-    <form method="post" action="#" class="bg-white shadow-md rounded py-10 px-1 md:flex md:flex-row">
+    <form method="post" action="#" class="bg-white shadow-md rounded pt-5 pb-10 md:px-10 md:flex md:flex-row">
         <!-- Airports -->
-        <div class="relative">
+        <div class="relative w-full">
             <label class="form-label text-md" for="departureLocation">
                 مبدا
             </label>
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="relative">
+        <div class="relative w-full">
             <label class="form-label text-md" for="destinationLocation">
                 مقصد
             </label>
@@ -49,13 +49,13 @@
         <!-- Space -->
         <div class="px-2"></div>
         <!-- Dates -->
-        <div>
+        <div class="w-full">
             <label class="form-label text-md" for="departureTime">
                 تاریخ رفت
             </label>
             <input id="departureTime" class="form-textfield w-full py-2 px-3" data-jdp>
         </div>
-        <div>
+        <div class="w-full">
             <label class="form-label text-md" for="returnTime">
                 تاریخ رفت
             </label>
@@ -64,7 +64,7 @@
         <!-- Space -->
         <div class="px-2"></div>
         <!-- Passengers -->
-        <div>
+        <div class="w-full">
             <label class="form-label text-md" for="passengersCount">
                 تاریخ رفت
             </label>
@@ -72,9 +72,11 @@
         </div>
         <!-- Space -->
         <div class="px-2"></div>
-        <button class="btn-primary h-12 font-medium text-lg my-2 px-10" type="submit">
-            جست و جو
-        </button>
+        <div class="flex items-end w-full">
+            <button class="btn-primary h-10 font-medium text-lg mt-2 px-10 w-full" type="submit">
+                جستجو
+            </button>
+        </div>
     </form>
 </div>
 <script type="application/javascript">
