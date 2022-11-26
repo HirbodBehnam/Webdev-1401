@@ -24,7 +24,7 @@
                 return null;
             // Convert it
             const date = jalaali.toGregorian(y, m, d);
-            return new Date(date.gy, date.gm, date.gd);
+            return new Date(date.gy, date.gm - 1, date.gd);
         }
 
         /**
@@ -35,13 +35,26 @@
          */
         function validateDepartureAndDestination(departureDate, returnDate) {
             const departureDateParts = departureDate.split("/").map(x => parseInt(x));
-            const returnDateParts = departureDate.split("/").map(x => parseInt(x));
+            const returnDateParts = returnDate.split("/").map(x => parseInt(x));
             // Parse
-            if (departureDateParts.length !== 3 || returnDateParts.length !== 3)
+            if (departureDateParts.length !== 3) {
+                document.getElementById("departureTime").classList.add("invalid-input");
                 return 1;
-            for (let i = 0; i < 3; i++)
-                if (Number.isNaN(departureDateParts[i]) || Number.isNaN(returnDateParts[i]))
+            }
+            if (returnDateParts.length !== 3) {
+                document.getElementById("returnTime").classList.add("invalid-input");
+                return 1;
+            }
+            for (let i = 0; i < 3; i++) {
+                if (Number.isNaN(departureDateParts[i])) {
+                    document.getElementById("departureTime").classList.add("invalid-input");
                     return 1;
+                }
+                if (Number.isNaN(returnDateParts[i])) {
+                    document.getElementById("returnTime").classList.add("invalid-input");
+                    return 1;
+                }
+            }
             // Parse
             const departureTime = JalaliToDate(departureDateParts[0], departureDateParts[1], departureDateParts[2]);
             const returnTime = JalaliToDate(returnDateParts[0], returnDateParts[1], returnDateParts[2]);
