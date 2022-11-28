@@ -114,74 +114,87 @@
 <body class="font-yekan" dir="rtl">
 <div class="m-auto w-full main-container">
     <div class="bg-white shadow-md rounded py-5 px-4 md:px-10 ">
-        <form method="post" action="#" onsubmit="return validateSearch()"
-              class="md:flex md:flex-row">
-            <!-- Airports -->
-            <div class="relative w-full">
-                <label class="form-label text-md" for="departureLocation">
-                    مبدا
-                </label>
-                <input class="form-textfield w-full py-2 px-3"
-                       id="departureLocation" type="text" placeholder="انتخاب کنید" required
-                       onclick="searchBoxFocusFunction(this)" onblur="searchBoxBlurFunction(this)"
-                       oninput="searchBoxHandleSearch(this)" autocomplete="off">
-                <div class="search-suggestion-placeholder opacity-0 scale-95"
-                     role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"
-                     id="departureLocationPlaceholderParent">
-                    <div class="py-1" role="none" id="departureLocationPlaceholder">
-                        <!-- Content of search bar goes here -->
+        <form method="post" action="#" onsubmit="return validateSearch()">
+            <div class="md:flex md:flex-row">
+                <!-- Airports -->
+                <div class="relative w-full">
+                    <label class="form-label text-md" for="departureLocation">
+                        مبدا
+                    </label>
+                    <input class="form-textfield w-full py-2 px-3"
+                           id="departureLocation" type="text" placeholder="انتخاب کنید" required
+                           onclick="searchBoxFocusFunction(this)" onblur="searchBoxBlurFunction(this)"
+                           oninput="searchBoxHandleSearch(this)" autocomplete="off">
+                    <div class="search-suggestion-placeholder opacity-0 scale-95"
+                         role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"
+                         id="departureLocationPlaceholderParent">
+                        <div class="py-1" role="none" id="departureLocationPlaceholder">
+                            <!-- Content of search bar goes here -->
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="relative w-full">
-                <label class="form-label text-md" for="destinationLocation">
-                    مقصد
-                </label>
-                <input class="form-textfield w-full py-2 px-3"
-                       id="destinationLocation" type="text" placeholder="انتخاب کنید" required
-                       onclick="searchBoxFocusFunction(this)" onblur="searchBoxBlurFunction(this)"
-                       oninput="searchBoxHandleSearch(this)" autocomplete="off">
-                <div class="search-suggestion-placeholder opacity-0 scale-95"
-                     role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"
-                     id="destinationLocationPlaceholderParent">
-                    <div class="py-1" role="none" id="destinationLocationPlaceholder">
-                        <!-- Content of search bar goes here -->
+                <div class="relative w-full">
+                    <label class="form-label text-md" for="destinationLocation">
+                        مقصد
+                    </label>
+                    <input class="form-textfield w-full py-2 px-3"
+                           id="destinationLocation" type="text" placeholder="انتخاب کنید" required
+                           onclick="searchBoxFocusFunction(this)" onblur="searchBoxBlurFunction(this)"
+                           oninput="searchBoxHandleSearch(this)" autocomplete="off">
+                    <div class="search-suggestion-placeholder opacity-0 scale-95"
+                         role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"
+                         id="destinationLocationPlaceholderParent">
+                        <div class="py-1" role="none" id="destinationLocationPlaceholder">
+                            <!-- Content of search bar goes here -->
+                        </div>
                     </div>
                 </div>
+                <!-- Space -->
+                <div class="px-2"></div>
+                <!-- Dates -->
+                <div class="w-full">
+                    <label class="form-label text-md" for="departureTime">
+                        تاریخ رفت
+                    </label>
+                    <input id="departureTime" class="form-textfield w-full py-2 px-3"
+                           autocomplete="off" placeholder="انتخاب کنید" data-jdp required>
+                </div>
+                <div class="w-full">
+                    <label class="form-label text-md" for="returnTime">
+                        تاریخ رفت
+                    </label>
+                    <input id="returnTime" class="form-textfield w-full py-2 px-3"
+                           autocomplete="off" placeholder="انتخاب کنید" data-jdp required>
+                </div>
+                <!-- Space -->
+                <div class="px-2"></div>
+                <!-- Passengers -->
+                <div class="w-full">
+                    <label class="form-label text-md" for="passengersCount">
+                        تعداد مسافران
+                    </label>
+                    <input id="passengersCount" class="form-textfield w-full py-2 px-3" type="number" min="1" max="9"
+                           value="1">
+                </div>
+                <!-- Space -->
+                <div class="px-2"></div>
+                <div class="flex items-end w-full">
+                    <button class="btn-primary h-10 font-medium text-lg mt-2 px-10 w-full" type="submit">
+                        جستجو
+                    </button>
+                </div>
             </div>
-            <!-- Space -->
-            <div class="px-2"></div>
-            <!-- Dates -->
-            <div class="w-full">
-                <label class="form-label text-md" for="departureTime">
-                    تاریخ رفت
-                </label>
-                <input id="departureTime" class="form-textfield w-full py-2 px-3"
-                       autocomplete="off" placeholder="انتخاب کنید" data-jdp required>
-            </div>
-            <div class="w-full">
-                <label class="form-label text-md" for="returnTime">
-                    تاریخ رفت
-                </label>
-                <input id="returnTime" class="form-textfield w-full py-2 px-3"
-                       autocomplete="off" placeholder="انتخاب کنید" data-jdp required>
-            </div>
-            <!-- Space -->
-            <div class="px-2"></div>
-            <!-- Passengers -->
-            <div class="w-full">
-                <label class="form-label text-md" for="passengersCount">
-                    تعداد مسافران
-                </label>
-                <input id="passengersCount" class="form-textfield w-full py-2 px-3" type="number" min="1" max="9"
-                       value="1">
-            </div>
-            <!-- Space -->
-            <div class="px-2"></div>
-            <div class="flex items-end w-full">
-                <button class="btn-primary h-10 font-medium text-lg mt-2 px-10 w-full" type="submit">
-                    جستجو
-                </button>
+            <!-- Options -->
+            <div class="flex flex-row mt-3">
+                <div class="flex items-center">
+                    <input type="checkbox" id="toway-ticket" name="toway-ticket" value="yes"/>
+                    <label for="toway-ticket" class="select-none mr-1">بلیط دوطرفه</label>
+                </div>
+                <div class="mx-1"></div> <!-- Space -->
+                <div class="flex items-center">
+                    <input type="checkbox" id="firstclass-ticket" name="firstclass-ticket" value="yes"/>
+                    <label for="firstclass-ticket" class="select-none mr-1">درجه یک</label>
+                </div>
             </div>
         </form>
         <div id="messageText" class="text-red-600 mt-3 mr-1"></div>
