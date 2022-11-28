@@ -18,7 +18,7 @@
          * @param d {number} Day
          * @return {Date} The constructed date or null
          */
-        function JalaliToDate(y, m, d) {
+        function jalaliToDate(y, m, d) {
             // Check if it's valid
             if (!jalaali.isValidJalaaliDate(y, m, d))
                 return null;
@@ -28,36 +28,30 @@
         }
 
         /**
+         * Parses a persian date in format of YYYY/MM/DD
+         * @param d {string} The date string
+         * @return {Date} Parsed date or null if there was a error
+         */
+        function parsePersianDate(d) {
+            const chunks = d.split("/").map(x => parseInt(x));
+            if (chunks.length !== 3)
+                return null;
+            for (let i = 0; i < 3; i++)
+                if (Number.isNaN(chunks[i]))
+                    return null;
+            return jalaliToDate(chunks[0], chunks[1], chunks[2]);
+        }
+
+        /**
          * Checks if departure and destination are valid
          * @param departureDate {string} Departure date
          * @param returnDate {string} Return date
          * @return {number} 0 if ok, 1 if invalid date, 2 if departure is after return date
          */
         function validateDepartureAndDestination(departureDate, returnDate) {
-            const departureDateParts = departureDate.split("/").map(x => parseInt(x));
-            const returnDateParts = returnDate.split("/").map(x => parseInt(x));
             // Parse
-            if (departureDateParts.length !== 3) {
-                document.getElementById("departureTime").classList.add("invalid-input");
-                return 1;
-            }
-            if (returnDateParts.length !== 3) {
-                document.getElementById("returnTime").classList.add("invalid-input");
-                return 1;
-            }
-            for (let i = 0; i < 3; i++) {
-                if (Number.isNaN(departureDateParts[i])) {
-                    document.getElementById("departureTime").classList.add("invalid-input");
-                    return 1;
-                }
-                if (Number.isNaN(returnDateParts[i])) {
-                    document.getElementById("returnTime").classList.add("invalid-input");
-                    return 1;
-                }
-            }
-            // Parse
-            const departureTime = JalaliToDate(departureDateParts[0], departureDateParts[1], departureDateParts[2]);
-            const returnTime = JalaliToDate(returnDateParts[0], returnDateParts[1], returnDateParts[2]);
+            const departureTime = parsePersianDate(departureDate);
+            const returnTime = parsePersianDate(returnDate);
             // Check
             if (departureTime === null) {
                 document.getElementById("departureTime").classList.add("invalid-input");
@@ -92,22 +86,41 @@
                 departure.classList.add("invalid-input");
                 destination.classList.add("invalid-input");
             }
-            // Check return before date
-            // TODO: check one way or two way
-            switch (validateDepartureAndDestination(departureDate.value, returnDate.value)) {
-                case 1:
+            if (document.getElementById("toway-ticket").checked) { // to way ticket
+                // Check return before date
+                switch (validateDepartureAndDestination(departureDate.value, returnDate.value)) {
+                    case 1:
+                        fine = false;
+                        messageText.innerHTML += "تاریخ نامعتبر" + "<br>";
+                        break;
+                    case 2:
+                        fine = false;
+                        messageText.innerHTML += "تاریخ رفت نمی تواند قبل از تاریخ برگشت باشد" + "<br>";
+                        break;
+                }
+            } else { // one way ticket
+                if (parsePersianDate(departureDate.value) == null) {
                     fine = false;
+                    document.getElementById("departureTime").classList.add("invalid-input");
                     messageText.innerHTML += "تاریخ نامعتبر" + "<br>";
-                    break;
-                case 2:
-                    fine = false;
-                    messageText.innerHTML += "تاریخ رفت نمی تواند قبل از تاریخ برگشت باشد" + "<br>";
-                    break;
+                }
             }
             // Reduce inner text if needed
             if (messageText.innerHTML.length > 4)
                 messageText.innerHTML = messageText.innerHTML.slice(0, -4);
             return fine;
+        }
+
+        /**
+         * This method must be called when the two-way checkbox state is changed to
+         * enable or disable the return time textbox.
+         */
+        function toWayTicketTriggered() {
+            const checked = document.getElementById("toway-ticket").checked;
+            const returnTimeInput = document.getElementById("returnTime");
+            returnTimeInput.disabled = !checked;
+            returnTimeInput.placeholder = checked ? "انتخاب کنید" : "";
+            returnTimeInput.value = "";
         }
     </script>
 </head>
@@ -161,10 +174,10 @@
                 </div>
                 <div class="w-full">
                     <label class="form-label text-md" for="returnTime">
-                        تاریخ رفت
+                        تاریخ برگشت
                     </label>
                     <input id="returnTime" class="form-textfield w-full py-2 px-3"
-                           autocomplete="off" placeholder="انتخاب کنید" data-jdp required>
+                           autocomplete="off" placeholder="" data-jdp required disabled>
                 </div>
                 <!-- Space -->
                 <div class="px-2"></div>
@@ -187,7 +200,8 @@
             <!-- Options -->
             <div class="flex flex-row mt-3">
                 <div class="flex items-center">
-                    <input type="checkbox" id="toway-ticket" name="toway-ticket" value="yes"/>
+                    <input type="checkbox" id="toway-ticket" name="toway-ticket" value="yes"
+                           onclick="toWayTicketTriggered()"/>
                     <label for="toway-ticket" class="select-none mr-1">بلیط دوطرفه</label>
                 </div>
                 <div class="mx-1"></div> <!-- Space -->
