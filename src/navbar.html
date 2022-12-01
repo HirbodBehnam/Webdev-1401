@@ -5,48 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../dist/output.css" rel="stylesheet">
     <link href="../dist/global.css" rel="stylesheet">
+    <script src="js/navbar-menu.js" defer></script>
+
     <title>Content | Crow Airlines</title>
 </head>
 <body class="page-background font-yekan" dir="rtl">
 <!-- component -->
+<nav
+        class="
+          flex
+          flex-wrap
+          items-center
+          justify-between
+          w-full
+          py-4
+          md:py-0
+          px-4
+          text-lg text-gray-900
+          bg-white
+          mb-2
+          dark:bg-stone-900
+        "
+>
+    <div class="flex flex-row h-12 max-h-full px-10">
+        <div class=>
+            <a href="#">
+                <img src="/assets/logo.png" class="max-h-full" alt="logo"/>
 
-<nav class="relative flex flex-wrap items-center justify-between px-2 py-3 bg-white mb-3 dark:bg-stone-900 ">
-    <div class="container flex-row m-auto flex items-center justify-between">
-        <div class="w-full relative flex justify-between lg:w-auto  px-10 lg:static lg:block lg:justify-start text-blue-600 dark:text-blue-400 ">
-            <a class=" font-bold text-4xl leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
-               href="#">
-                کلاغ‌پر
             </a>
-            <button class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-                    type="button">
-                <span class="block relative w-6 h-px rounded-sm bg-white"></span>
-                <span class="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
-                <span class="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
-            </button>
-            <!--what are these bullshit -->
+
         </div>
-        <div class="lg:flex flex-grow items-center m-auto" id="example-navbar-warning">
-            <ul class="flex lg:flex-row list-none ml-auto text-gray-900 dark:text-white">
-                <li class="nav-item">
-                    <a class="px-3 py-2 flex items-center text-base uppercase leading-snug hover:opacity-75 "
-                       href="#pablo">
-                        صفحه اصلی
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="px-3 py-2 flex items-center text-base uppercase leading-snug hover:opacity-75 "
-                       href="#pablo">
-                        سفرهای شما
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="px-3 py-2 flex items-center text-base uppercase leading-snug hover:opacity-75 "
-                       href="#pablo">
-                        ورود یا ثبت‌نام
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <div class="text-center text-blue-600 text-2xl font-bold m-auto p-2 dark:text-blue-400">کلاغ‌پر</div>
+    </div>
+
+    <svg
+            xmlns="http://www.w3.org/2000/svg"
+            id="menu-button"
+            class="h-6 w-6 cursor-pointer md:hidden block"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+
+    >
+        <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+        />
+    </svg>
+
+    <div class="hidden w-full md:flex md:items-center md:w-auto px-10" id="menu">
+        <ul
+                class="
+              pt-4
+              text-base text-gray-900
+              md:flex
+              md:justify-between
+              md:pt-0"
+        >
+            <li>
+                <a class="md:p-4 py-2 block hover:text-blue-400 dark:text-white" href="#"
+                >صفحه اصلی</a
+                >
+            </li>
+            <li>
+                <a class="md:p-4 py-2 block hover:text-blue-400 dark:text-white" href="#"
+                >سفرهای شما</a
+                >
+            </li>
+            <li>
+                <a class="md:p-4 py-2 block hover:text-blue-400 dark:text-white" href="#"
+                >ورود یا ثبت‌نام</a
+                >
+            </li>
+        </ul>
     </div>
 </nav>
 
@@ -168,5 +201,4 @@
         </div>
     </div>
 </div>
-
 </body>
