@@ -70,3 +70,8 @@
 .invalid-input {
     @apply border-red-500
 }
+
+.tag-label {
+    font-size: 1rem;
+    @apply font-normal px-3 bg-gray-400 dark:bg-gray-800 ml-3 text-center rounded
+}
