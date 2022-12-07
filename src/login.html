@@ -10,9 +10,12 @@
 <body class="page-background font-yekan" dir="rtl">
 <div class="flex flex-col h-screen items-center">
     <div class="m-auto w-full max-w-sm">
-        <div class="bg-white shadow-md rounded pt-2 px-6">
+        <div class="bg-white shadow-md rounded pt-2 px-6 dark:bg-stone-900 dark:text-white">
             <form method="post" action="#" class="my-4 pb-4">
-                <img src="/assets/logo.png" alt="logo" width="80" class="mx-auto"/>
+                <picture>
+                    <source srcset="/assets/logo-dark.png" media="(prefers-color-scheme: dark)">
+                    <img class="mx-auto" width="80" src="/assets/logo.png" alt="Logo">
+                </picture>
                 <div class="mb-4">
                     <label class="form-label text-md" for="email">
                         ایمیل

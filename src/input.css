@@ -48,7 +48,7 @@
 
 /* Simple link */
 .link {
-    @apply text-blue-700 no-underline hover:underline
+    @apply text-blue-700 no-underline hover:underline dark:text-blue-500
 }
 
 .form-label {
