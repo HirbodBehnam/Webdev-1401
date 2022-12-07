@@ -29,12 +29,18 @@
 
 /* Primary buttons of pages */
 .btn-primary {
-    @apply bg-blue-800 text-white hover:bg-blue-400 hover:text-black transition-colors duration-300 uppercase rounded-md
+    @apply text-white hover:bg-blue-400 hover:text-black transition-colors duration-300 uppercase rounded-md
+    bg-blue-800 dark:bg-blue-600
 }
 
 /* Base of textfields */
 .form-textfield {
-    @apply shadow appearance-none border rounded text-gray-700 leading-tight
+    @apply shadow appearance-none border rounded leading-tight
+    text-gray-800 dark:bg-gray-700 dark:text-white
+}
+
+.form-textfield:disabled {
+    @apply dark:bg-gray-900 cursor-not-allowed
 }
 
 .search-textfield {
@@ -43,22 +49,24 @@
 
 /* Simple link */
 .link {
-    @apply text-blue-700 no-underline hover:underline
+    @apply text-blue-700 no-underline hover:underline dark:text-blue-500
 }
 
 .form-label {
-    @apply block text-gray-700 font-bold mb-2
+    @apply block text-gray-800 font-bold mb-2 dark:text-gray-50
 }
 
 .search-result-text {
-    @apply text-gray-700 hover:bg-gray-200 hover:text-gray-900 block px-4 py-2 text-sm cursor-pointer
+    @apply block px-4 py-2 text-sm cursor-pointer
     transition-colors duration-100
+    text-gray-700 hover:bg-gray-200 hover:text-gray-900
+    dark:text-gray-50 dark:hover:bg-gray-700 dark:hover:text-gray-100
 }
 
 .search-suggestion-placeholder {
-    @apply absolute z-10 right-0 mt-2 origin-top-right rounded-md bg-gray-50 shadow-lg ring-1 ring-black ring-opacity-5 text-right font-vazir
-    transition duration-150 transform
-    w-full
+    @apply absolute z-10 right-0 mt-2 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 text-right font-vazir
+    transition duration-150 transform w-full
+    bg-gray-50 dark:bg-gray-900
 }
 
 /* Main container in all pages */
