@@ -1574,6 +1574,26 @@ video {
   }
 }
 
+@media not all and (min-width: 768px) {
+  .max-md\:flex-col {
+    flex-direction: column;
+  }
+
+  .max-md\:items-stretch {
+    align-items: stretch;
+  }
+
+  .max-md\:border-b {
+    border-bottom-width: 1px;
+  }
+}
+
+@media not all and (min-width: 640px) {
+  .max-sm\:border-b {
+    border-bottom-width: 1px;
+  }
+}
+
 @media (min-width: 640px) {
   .sm\:-m-4 {
     margin: -1rem;
@@ -1679,6 +1699,10 @@ video {
   .md\:border-x-2 {
     border-left-width: 2px;
     border-right-width: 2px;
+  }
+
+  .md\:border-l {
+    border-left-width: 1px;
   }
 
   .md\:border-gray-200 {

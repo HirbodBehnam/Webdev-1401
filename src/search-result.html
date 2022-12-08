@@ -15,9 +15,9 @@
             class="bg-white border text-center dark:bg-stone-900 dark:text-white shadow-md rounded py-5 px-4 md:px-10 items-stretch justify-between relative">
             <!-- flight card -->
             <div class="flex flex-col rounded border mx-auto py-2 px-4 w-8/12 mb-10">
-                <div class="flex flex-row items-stretch justify-between">
+                <div class="flex md:flex-row max-md:flex-col max-md: items-stretch justify-between">
                     <!-- flight details -->
-                    <div class="flex flex-col border-l items-stretch flex-grow-0 w-3/5">
+                    <div class="flex flex-col md:border-l max-md:border-b items-stretch flex-grow-0 w-3/5">
                         <!-- flight content -->
                         <div class="flex flex-col align-middle h-2/3">
                             <!-- flight tags -->
@@ -26,7 +26,7 @@
                                 <span class="tag-label">هاپ‌هاپ</span>
                             </div>
                             <!-- flight time and place -->
-                            <div class="flex flex-row py-2 px-6">
+                            <div class="sm:flex flex-row py-2 px-6">
                                 <span class="ml-2">تهران</span>
                                 <strong class="text-lg md:text-md ml-2">۱۲:۰۰</strong>
                                 <span
@@ -81,9 +81,9 @@
             </div>
             <!-- another flight card -->
             <div class="flex flex-col rounded border mx-auto py-2 px-4 w-8/12 mb-10">
-                <div class="flex flex-row items-stretch justify-between">
+                <div class="flex md:flex-row max-md:flex-col max-md: items-stretch justify-between">
                     <!-- flight details -->
-                    <div class="flex flex-col border-l items-stretch flex-grow-0 w-3/5">
+                    <div class="flex flex-col md:border-l max-md:border-b items-stretch flex-grow-0 w-3/5">
                         <!-- flight content -->
                         <div class="flex flex-col align-middle h-2/3">
                             <!-- flight tags -->
@@ -92,7 +92,7 @@
                                 <span class="tag-label">هاپ‌هاپ</span>
                             </div>
                             <!-- flight time and place -->
-                            <div class="flex flex-row py-2 px-6">
+                            <div class="sm:flex flex-row py-2 px-6">
                                 <span class="ml-2">تهران</span>
                                 <strong class="text-lg md:text-md ml-2">۱۲:۰۰</strong>
                                 <span
@@ -111,7 +111,7 @@
                         <!-- flight more details link -->
                         <div class="flex flex-row justify-between text-sm py-2 px-6 text-right">
                             <div class="text-gray-900 dark:text-gray-400 underline">
-                                <a id="1-flight-a" class="flight-details" onclick="onFlightDetailsClicked(this)"
+                                <a id="0-flight-a" class="flight-details" onclick="onFlightDetailsClicked(this)"
                                     role="button">اطلاعات پرواز</a>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="1-flight-details" class="hidden transition-all flex flex-row justify-start my-2">
+                <div id="0-flight-details" class="hidden transition-all flex flex-row justify-start my-2">
                     <div class="flex flex-col rounded border p-2 mx-2">
                         <strong class="pb-2">اکونومی</strong>
                         <strong class="px-2">۲۵۰.۰۰۰ ریال</strong>
