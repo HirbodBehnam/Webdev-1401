@@ -31,14 +31,14 @@
           w-full
           py-4
           md:py-0
-          px-4
+          md:px-4
           text-lg text-gray-900
           bg-white
           mb-2
           dark:bg-stone-900
         "
 >
-    <div class="flex flex-row h-12 max-h-full px-10">
+    <div class="flex flex-row h-12 max-h-full md:px-10">
         <div class=>
             <a href="#">
                 <img src="/assets/logo.png" class="max-h-full" alt="logo"/>
@@ -113,10 +113,10 @@
                                id="grid-first-name-latin" type="text" placeholder="نام لاتین">
                         <!--                <p class="text-red-500 text-xs italic">لطفا این بخش را کامل کنید</p>-->
                     </div>
-                    <div class="w-full md:w-1/4 px-3">
+                    <div class="w-full md:w-1/4 px-3 mb-6">
                         <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
                                for="grid-last-name-latin">
-                            نامخانوادگی لاتین
+                            نام‌خانوادگی لاتین
                         </label>
                         <input class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                id="grid-last-name-latin" type="text" placeholder="نام‌خانوادگی لاتین">
@@ -187,11 +187,16 @@
         </div>
     </div>
     <div>
-        <button id="add-button" class="btn-primary p-2 font-medium text-lg my-2" onclick="addNewForm()">
+        <button id="add-button" class="btn-primary p-2 font-medium text-lg my-4" onclick="addNewForm()">
             <svg viewBox="0 0 24 24" width="1em" fill="currentColor" class="inline-block">
                 <path d="M12 3a.75.75 0 0 1 .745.663l.005.087v7.5h7.5a.75.75 0 0 1 .087 1.495l-.087.005h-7.5v7.5a.75.75 0 0 1-1.495.087l-.005-.087v-7.5h-7.5a.75.75 0 0 1-.087-1.495l.087-.005h7.5v-7.5A.75.75 0 0 1 12 3Z"></path>
             </svg>
             افزودن مسافر
+        </button>
+    </div>
+    <div>
+        <button id="buy-button" class="btn-primary font-medium text-lg my-4 px-6 p-2 object-left">
+            تایید و خرید
         </button>
     </div>
 </div>
