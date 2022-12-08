@@ -15,7 +15,7 @@
             class="bg-white border text-center dark:bg-stone-900 dark:text-white shadow-md rounded py-5 px-4 md:px-10 items-stretch justify-between relative">
             <!-- flight card -->
             <div class="flex flex-col rounded border mx-auto py-2 px-4 w-8/12 mb-10">
-                <div class="flex md:flex-row max-md:flex-col max-md: items-stretch justify-between">
+                <div class="flex md:flex-row max-md:flex-col items-stretch justify-between">
                     <!-- flight details -->
                     <div class="flex flex-col md:border-l max-md:border-b items-stretch flex-grow-0 w-3/5">
                         <!-- flight content -->
@@ -30,7 +30,7 @@
                                 <span class="ml-2">تهران</span>
                                 <strong class="text-lg md:text-md ml-2">۱۲:۰۰</strong>
                                 <span
-                                    class="stops flex grow items-center justify-between text-grays-200 relative mx-5 md:mx-7 max-w-[8.5rem]"
+                                    class="flex items-center justify-between text-grays-200 relative mx-5 md:mx-7 max-w-[8.5rem]"
                                     data-v-355fb152=""><svg viewBox="0 0 24 24" width="1rem" height="1rem"
                                         fill="currentColor" data-v-355fb152="">
                                         <path
@@ -68,12 +68,12 @@
                         </div>
                     </div>
                 </div>
-                <div id="0-flight-details" class="hidden transition-all flex flex-row justify-start my-2">
+                <div id="0-flight-details" class="hidden transition-all md:flex flex-row justify-start my-2">
                     <div class="flex flex-col rounded border p-2 mx-2">
                         <strong class="pb-2">اکونومی</strong>
                         <strong class="px-2">۲۵۰.۰۰۰ ریال</strong>
                     </div>
-                    <div class="flex flex-col rounded border p-2 mx-2">
+                    <div class="flex flex-col rounded border p-2 m-2">
                         <strong class="pb-2">بیزینس</strong>
                         <strong class="px-2">۵۰۰.۰۰۰ ریال</strong>
                     </div>
@@ -81,7 +81,7 @@
             </div>
             <!-- another flight card -->
             <div class="flex flex-col rounded border mx-auto py-2 px-4 w-8/12 mb-10">
-                <div class="flex md:flex-row max-md:flex-col max-md: items-stretch justify-between">
+                <div class="flex md:flex-row max-md:flex-col items-stretch justify-between">
                     <!-- flight details -->
                     <div class="flex flex-col md:border-l max-md:border-b items-stretch flex-grow-0 w-3/5">
                         <!-- flight content -->
@@ -96,7 +96,7 @@
                                 <span class="ml-2">تهران</span>
                                 <strong class="text-lg md:text-md ml-2">۱۲:۰۰</strong>
                                 <span
-                                    class="stops flex grow items-center justify-between text-grays-200 relative mx-5 md:mx-7 max-w-[8.5rem]"
+                                    class="flex items-center justify-between text-grays-200 relative mx-5 md:mx-7 max-w-[8.5rem]"
                                     data-v-355fb152=""><svg viewBox="0 0 24 24" width="1rem" height="1rem"
                                         fill="currentColor" data-v-355fb152="">
                                         <path
@@ -111,8 +111,12 @@
                         <!-- flight more details link -->
                         <div class="flex flex-row justify-between text-sm py-2 px-6 text-right">
                             <div class="text-gray-900 dark:text-gray-400 underline">
-                                <a id="0-flight-a" class="flight-details" onclick="onFlightDetailsClicked(this)"
+                                <a id="1-flight-a" class="flight-details" onclick="onFlightDetailsClicked(this)"
                                     role="button">اطلاعات پرواز</a>
+                            </div>
+                            <div
+                                class="mx-2 px-2 rounded border border-rose-700 dark:border-rose-400 text-rose-700 dark:text-rose-400">
+                                تنها ۳ صندلی باقی مانده
                             </div>
                         </div>
                     </div>
@@ -130,12 +134,12 @@
                         </div>
                     </div>
                 </div>
-                <div id="0-flight-details" class="hidden transition-all flex flex-row justify-start my-2">
+                <div id="1-flight-details" class="hidden transition-all md:flex flex-row justify-start my-2">
                     <div class="flex flex-col rounded border p-2 mx-2">
                         <strong class="pb-2">اکونومی</strong>
                         <strong class="px-2">۲۵۰.۰۰۰ ریال</strong>
                     </div>
-                    <div class="flex flex-col rounded border p-2 mx-2">
+                    <div class="flex flex-col rounded border p-2 m-2">
                         <strong class="pb-2">بیزینس</strong>
                         <strong class="px-2">۵۰۰.۰۰۰ ریال</strong>
                     </div>

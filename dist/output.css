@@ -584,6 +584,10 @@ video {
   margin: auto;
 }
 
+.m-2 {
+  margin: 0.5rem;
+}
+
 .-mx-3 {
   margin-left: -0.75rem;
   margin-right: -0.75rem;
@@ -1579,17 +1583,7 @@ video {
     flex-direction: column;
   }
 
-  .max-md\:items-stretch {
-    align-items: stretch;
-  }
-
   .max-md\:border-b {
-    border-bottom-width: 1px;
-  }
-}
-
-@media not all and (min-width: 640px) {
-  .max-sm\:border-b {
     border-bottom-width: 1px;
   }
 }
