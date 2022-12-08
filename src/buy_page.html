@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/jalalidatepicker.min.css">
+    <script type="text/javascript"
+            src="../dist/jalalidatepicker.min.js"></script>
+    <link href="../dist/output.css" rel="stylesheet">
+    <link href="../dist/global.css" rel="stylesheet">
+    <script src="js/navbar-menu.js" defer></script>
+    <script>
+        function addNewForm() {
+            let form = document.getElementById("form");
+            let newForm = document.createElement("div");
+            newForm.innerHTML = form.innerHTML;
+            document.getElementById("forms").appendChild(newForm);
+        }
+    </script>
+
+    <title>Buy Page | Crow Airlines</title>
+</head>
+<body class="page-background font-yekan" dir="rtl">
+<!-- component -->
+<nav
+        class="
+          flex
+          flex-wrap
+          items-center
+          justify-between
+          w-full
+          py-4
+          md:py-0
+          md:px-4
+          text-lg text-gray-900
+          bg-white
+          mb-2
+          dark:bg-stone-900
+        "
+>
+    <div class="flex flex-row h-12 max-h-full md:px-10">
+        <div class=>
+            <a href="#">
+                <img src="/assets/logo.png" class="max-h-full" alt="logo"/>
+
+            </a>
+
+        </div>
+        <div class="text-center text-blue-600 text-2xl font-bold m-auto p-2 dark:text-blue-400">کلاغ‌پر</div>
+    </div>
+
+    <svg
+            xmlns="http://www.w3.org/2000/svg"
+            id="menu-button"
+            class="h-6 w-6 cursor-pointer md:hidden block"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+
+    >
+        <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+        />
+    </svg>
+
+    <div class="hidden w-full md:flex md:items-center md:w-auto px-10" id="menu">
+        <ul
+                class="
+              pt-4
+              text-base text-gray-900
+              md:flex
+              md:justify-between
+              md:pt-0"
+        >
+            <li>
+                <a class="md:p-4 py-2 block hover:text-blue-400 dark:text-white" href="#"
+                >صفحه اصلی</a
+                >
+            </li>
+            <li>
+                <a class="md:p-4 py-2 block hover:text-blue-400 dark:text-white" href="#"
+                >سفرهای شما</a
+                >
+            </li>
+            <li>
+                <a class="md:p-4 py-2 block hover:text-blue-400 dark:text-white" href="#"
+                >ورود یا ثبت‌نام</a
+                >
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<!-- information form -->
+<div class="main-container m-auto p-0 bg-white text-center dark:bg-stone-900 ">
+    <div class="mb-4">
+        <h2 class="text-right border-r-4 p-2 font-bold text-2xl text-blue-600 border-blue-600"> اطلاعات مسافران</h2>
+    </div>
+    <div id="forms">
+        <div id="form">
+            <form class="w-full mt-4">
+                <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+                               for="grid-first-name-latin">
+                            نام لاتین
+                        </label>
+                        <input class="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                               id="grid-first-name-latin" type="text" placeholder="نام لاتین">
+                        <!--                <p class="text-red-500 text-xs italic">لطفا این بخش را کامل کنید</p>-->
+                    </div>
+                    <div class="w-full md:w-1/4 px-3 mb-6">
+                        <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+                               for="grid-last-name-latin">
+                            نام‌خانوادگی لاتین
+                        </label>
+                        <input class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                               id="grid-last-name-latin" type="text" placeholder="نام‌خانوادگی لاتین">
+                    </div>
+                    <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+                               for="grid-national-number">
+                            کد ملی
+                        </label>
+                        <input class="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                               id="grid-national-number" type="text" placeholder="123456789">
+                        <!--                <p class="text-red-500 text-xs italic">Please fill out this field.</p>-->
+                    </div>
+                    <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+                               for="grid-gender">
+                            جنسیت
+                        </label>
+                        <div class="relative">
+                            <select class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    id="grid-gender">
+                                <option>انتخاب</option>
+                                <option>مرد</option>
+                                <option>زن</option>
+                                <option>نامعلوم</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+                               for="grid-first-name">
+                            نام
+                        </label>
+                        <input class="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                               id="grid-first-name" type="text" placeholder="نام">
+                        <!--                <p class="text-red-500 text-xs italic">لطفا این بخش را کامل کنید</p>-->
+                    </div>
+                    <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+                               for="grid-last-name">
+                            نام خانوادگی
+                        </label>
+                        <input class="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                               id="grid-last-name" type="text" placeholder="نام‌خانوادگی">
+                        <!--                <p class="text-red-500 text-xs italic">لطفا این بخش را کامل کنید</p>-->
+                    </div>
+                    <div class="md:w-1/4">
+                        <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
+                               for="birthdate">
+                            تاریخ تولد
+                        </label>
+                        <input id="birthdate"
+                               class="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                               autocomplete="off" placeholder="انتخاب کنید" data-jdp required>
+                    </div>
+                </div>
+            </form>
+            <hr>
+        </div>
+    </div>
+    <div>
+        <button id="add-button" class="btn-primary p-2 font-medium text-lg my-4" onclick="addNewForm()">
+            <svg viewBox="0 0 24 24" width="1em" fill="currentColor" class="inline-block">
+                <path d="M12 3a.75.75 0 0 1 .745.663l.005.087v7.5h7.5a.75.75 0 0 1 .087 1.495l-.087.005h-7.5v7.5a.75.75 0 0 1-1.495.087l-.005-.087v-7.5h-7.5a.75.75 0 0 1-.087-1.495l.087-.005h7.5v-7.5A.75.75 0 0 1 12 3Z"></path>
+            </svg>
+            افزودن مسافر
+        </button>
+    </div>
+    <div>
+        <button id="buy-button" class="btn-primary font-medium text-lg my-4 px-6 p-2 object-left">
+            تایید و خرید
+        </button>
+    </div>
+</div>
+
+<script type="application/javascript">
+    jalaliDatepicker.startWatch({
+        minDate: "today"
+    });
+</script>
+</body>
