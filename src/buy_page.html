@@ -31,28 +31,38 @@
           w-full
           py-4
           md:py-0
-          md:px-4
+          px-4
           text-lg text-gray-900
           bg-white
           mb-2
           dark:bg-stone-900
         "
 >
-    <div class="flex flex-row h-12 max-h-full md:px-10">
-        <div class=>
-            <a href="#">
-                <img src="/assets/logo.png" class="max-h-full" alt="logo"/>
 
+    <div class="flex flex-row h-12 max-h-full px-2 md:px-10">
+        <div class="h-full">
+            <a class="h-full" href="#">
+                <picture>
+                    <source
+                            srcset="/assets/logo-dark.png"
+                            media="(prefers-color-scheme: dark)"
+                    >
+                    <img
+                            class="h-full"
+                            src="/assets/logo.png"
+                            alt="Logo"
+                    >
+                </picture>
             </a>
 
         </div>
-        <div class="text-center text-blue-600 text-2xl font-bold m-auto p-2 dark:text-blue-400">کلاغ‌پر</div>
+        <div class="text-center text-blue-600 text-2xl font-bold p-2 dark:text-blue-600">کلاغ‌پر</div>
     </div>
 
     <svg
             xmlns="http://www.w3.org/2000/svg"
             id="menu-button"
-            class="h-6 w-6 cursor-pointer md:hidden block"
+            class="h-6 w-6 cursor-pointer md:hidden block dark:stroke-white"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
