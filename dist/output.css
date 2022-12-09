@@ -1666,6 +1666,21 @@ video {
     margin-bottom: 1rem;
   }
 
+  .md\:mx-5 {
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
+  }
+
+  .md\:mx-3 {
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+  }
+
+  .md\:mx-4 {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
   .md\:mb-0 {
     margin-bottom: 0px;
   }
@@ -1772,5 +1787,17 @@ video {
   .lg\:my-8 {
     margin-top: 2rem;
     margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:mx-7 {
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+  }
+
+  .xl\:mx-5 {
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
   }
 }
