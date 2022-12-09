@@ -14,23 +14,22 @@
         <div
             class="bg-white border text-center dark:bg-stone-900 dark:text-white shadow-md rounded py-5 px-4 md:px-10 items-stretch justify-between relative">
             <!-- flight card -->
-            <div class="flex flex-col rounded border mx-auto py-2 px-4 w-8/12 mb-10">
-                <div class="md:flex flex-row items-stretch justify-between">
+            <div class="flex flex-col rounded border mx-auto py-2 px-4 w-full md:w-8/12 mb-10">
+                <div class="flex md:flex-row max-md:flex-col items-stretch justify-between">
                     <!-- flight details -->
-                    <div class="flex flex-col items-stretch flex-grow-0 w-3/5">
+                    <div class="flex flex-col items-stretch flex-grow-0 w-full md:w-3/5">
                         <!-- flight content -->
                         <div class="flex flex-col align-middle h-2/3">
                             <!-- flight tags -->
-                            <div class="sm:flex flex-row py-2 px-6">
+                            <div class="sm:flex flex-row py-2 px-4 justify-center md:justify-start">
                                 <span class="tag-label">۱۴۰۱/۰۹/۰۱</span>
                                 <span class="tag-label">بیزینس</span>
                             </div>
                             <!-- flight time and place -->
-                            <div class="sm:flex flex-row py-2 px-6">
+                            <div class="md:flex flex-row py-2 px-6">
                                 <span class="ml-2">تهران</span>
                                 <strong class="text-lg md:text-md ml-2">۱۲:۰۰</strong>
-                                <span
-                                    class="flex items-center justify-between text-grays-200 relative mx-5 md:mx-7 max-w-[8.5rem]"
+                                <span class="flex items-center justify-center text-grays-200 relative md:mx-4 xl:mx-7"
                                     data-v-355fb152=""><svg viewBox="0 0 24 24" width="1rem" height="1rem"
                                         fill="currentColor" data-v-355fb152="">
                                         <path
@@ -43,58 +42,71 @@
                             </div>
                         </div>
                     </div>
-                    <!-- flight price and buy button -->
-                    <div class="flex flex-col justify-center flex-shrink-0 content-center w-2/5 rounded max-md:border">
-                        <!-- flight price -->
-                        <div class="text-xl text-center my-4">
+                    <!-- flight price outer div -->
+                    <div
+                        class="flex flex-col justify-between flex-shrink-0 content-center w-full md:w-2/5 rounded max-md:border">
+                        <!-- flight price inner div -->
+                        <div class="text-xl text-center my-2 md:my-4">
                             ۱.۰۰۰.۰۰۰ ریال
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col justify-start my-2 border-t">
+                <div class="flex flex-col w-full lg:4/5 self-center overflow-x-auto overflow-y-hidden md:border-t">
                     <strong class="text-xl py-2">مسافران</strong>
-                    <table class="table-auto">
-                        <thead class="text-lg">
-                            <tr>
-                                <th class="border-l">نام</th>
-                                <th class="border-l">نام خانوادگی</th>
-                                <th>کد ملی</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-base">
-                            <tr>
-                                <td class="border-l">
-                                    هیربد
-                                </td>
-                                <td class="border-l">
-                                    بهنام
-                                </td>
-                                <td>
-                                    ۴۲۰۶۹۸۵۴۲۰
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="flex flex-col w-full">
+                        <div class="flex flex-row">
+                            <div class="m-auto w-1/3 font-bold px-1">
+                                <span class="text-center items-center m-auto">نام</span>
+                            </div>
+                            <div class="m-auto w-1/3 font-bold px-1">
+                                <span class="text-center items-center m-auto">نام خانوادگی</span>
+                            </div>
+                            <div class="m-auto w-1/3 font-bold px-1">
+                                <span class="text-center items-center m-auto">کد ملی</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-row">
+                            <div class="border-l m-auto w-1/3 px-1">
+                                <span class="text-center items-center m-auto">هیربد</span>
+                            </div>
+                            <div class="border-l m-auto w-1/3 px-1">
+                                <span class="text-center items-center m-auto">بهنام</span>
+                            </div>
+                            <div class="m-auto w-1/3 px-1">
+                                <span class="text-center items-center m-auto">۴۲۰۶۹۸۵۴۲۰</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-row">
+                            <div class="border-l m-auto w-1/3 px-1">
+                                <span class="text-center items-center m-auto">عرفان</span>
+                            </div>
+                            <div class="border-l m-auto w-1/3 px-1">
+                                <span class="text-center items-center m-auto">مجیبی</span>
+                            </div>
+                            <div class="m-auto w-1/3 px-1">
+                                <span class="text-center items-center m-auto">۴۲۰۸۵۶۹۴۲۰</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- flight card -->
-            <div class="flex flex-col rounded border mx-auto py-2 px-4 w-8/12 mb-10">
-                <div class="md:flex flex-row items-stretch justify-between">
+            <!-- another flight card -->
+            <div class="flex flex-col rounded border mx-auto py-2 px-4 w-full md:w-8/12 mb-10">
+                <div class="flex md:flex-row max-md:flex-col items-stretch justify-between">
                     <!-- flight details -->
-                    <div class="flex flex-col items-stretch flex-grow-0 w-3/5">
+                    <div class="flex flex-col items-stretch flex-grow-0 w-full md:w-3/5">
                         <!-- flight content -->
                         <div class="flex flex-col align-middle h-2/3">
                             <!-- flight tags -->
-                            <div class="sm:flex flex-row py-2 px-6">
+                            <div class="sm:flex flex-row py-2 px-4 justify-center md:justify-start">
                                 <span class="tag-label">۱۴۰۱/۰۹/۰۱</span>
                                 <span class="tag-label">بیزینس</span>
                             </div>
                             <!-- flight time and place -->
-                            <div class="sm:flex flex-row py-2 px-6">
+                            <div class="md:flex flex-row py-2 px-6">
                                 <span class="ml-2">تهران</span>
                                 <strong class="text-lg md:text-md ml-2">۱۲:۰۰</strong>
-                                <span
-                                    class="flex items-center justify-between text-grays-200 relative mx-5 md:mx-7 max-w-[8.5rem]"
+                                <span class="flex items-center justify-center text-grays-200 relative md:mx-4 xl:mx-7"
                                     data-v-355fb152=""><svg viewBox="0 0 24 24" width="1rem" height="1rem"
                                         fill="currentColor" data-v-355fb152="">
                                         <path
@@ -107,49 +119,41 @@
                             </div>
                         </div>
                     </div>
-                    <!-- flight price and buy button -->
-                    <div class="flex flex-col justify-center flex-shrink-0 content-center w-2/5 rounded max-md:border">
-                        <!-- flight price -->
-                        <div class="text-xl text-center my-4">
+                    <!-- flight price outer div -->
+                    <div
+                        class="flex flex-col justify-between flex-shrink-0 content-center w-full md:w-2/5 rounded max-md:border">
+                        <!-- flight price inner div -->
+                        <div class="text-xl text-center my-2 md:my-4">
                             ۱.۰۰۰.۰۰۰ ریال
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col justify-start my-2 border-t">
+                <div class="flex flex-col w-full lg:4/5 self-center overflow-x-auto overflow-y-hidden md:border-t">
                     <strong class="text-xl py-2">مسافران</strong>
-                    <table class="table-auto">
-                        <thead class="text-lg">
-                            <tr>
-                                <th class="border-l">نام</th>
-                                <th class="border-l">نام خانوادگی</th>
-                                <th>کد ملی</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-base">
-                            <tr>
-                                <td class="border-l">
-                                    هیربد
-                                </td>
-                                <td class="border-l">
-                                    بهنام
-                                </td>
-                                <td>
-                                    ۴۲۰۶۹۸۵۴۲۰
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="border-l">
-                                    عرفان
-                                </td>
-                                <td class="border-l">
-                                    مجیبی
-                                </td>
-                                <td>
-                                    ۴۲۰۸۵۶۹۴۲۰
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="flex flex-col w-full">
+                        <div class="flex flex-row">
+                            <div class="m-auto w-1/3 font-bold px-1">
+                                <span class="text-center items-center m-auto">نام</span>
+                            </div>
+                            <div class="m-auto w-1/3 font-bold px-1">
+                                <span class="text-center items-center m-auto">نام خانوادگی</span>
+                            </div>
+                            <div class="m-auto w-1/3 font-bold px-1">
+                                <span class="text-center items-center m-auto">کد ملی</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-row">
+                            <div class="border-l m-auto w-1/3 px-1">
+                                <span class="text-center items-center m-auto">هیربد</span>
+                            </div>
+                            <div class="border-l m-auto w-1/3 px-1">
+                                <span class="text-center items-center m-auto">بهنام</span>
+                            </div>
+                            <div class="m-auto w-1/3 px-1">
+                                <span class="text-center items-center m-auto">۴۲۰۶۹۸۵۴۲۰</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
