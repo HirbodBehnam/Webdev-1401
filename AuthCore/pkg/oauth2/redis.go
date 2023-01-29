@@ -59,7 +59,7 @@ func (r redisStorage) Refresh(refreshToken string, ttl time.Duration) (newAccess
 	// Renew TTL
 	changedTTL := r.client.Expire(context.Background(), accessTokenPrefix+accessToken, ttl)
 	if changed, _ := changedTTL.Result(); !changed {
-		return "", errors.New("cannot change the ttl (key does not exists?)")
+		return "", NotFound
 	}
 	// Change it
 	newAccessToken = NewToken()

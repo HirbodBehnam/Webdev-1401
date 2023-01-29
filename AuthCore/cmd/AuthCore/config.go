@@ -23,3 +23,27 @@ func getRedisOptions() *redis.Options {
 		Password: password,
 	}
 }
+
+func getDatabaseConnectionURL() string {
+	dbUrl := os.Getenv("DATABASE_URL")
+	if dbUrl == "" {
+		log.Fatalln("please set DATABASE_URL environmental variable")
+	}
+	return dbUrl
+}
+
+func getServeData() (listen, certFile, keyFile string) {
+	listen = os.Getenv("LISTEN")
+	if listen == "" {
+		log.Fatalln("please set LISTEN environmental variable")
+	}
+	certFile = os.Getenv("TLS_CERT")
+	if certFile == "" {
+		log.Fatalln("please set TLS_CERT environmental variable")
+	}
+	keyFile = os.Getenv("TLS_KEY")
+	if keyFile == "" {
+		log.Fatalln("please set TLS_KEY environmental variable")
+	}
+	return
+}
