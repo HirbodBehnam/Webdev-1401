@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/go-redis/redis/v8"
 	log "github.com/sirupsen/logrus"
+	"net"
 	"os"
 	"strconv"
 )
@@ -33,9 +34,9 @@ func getDatabaseConnectionURL() string {
 }
 
 func getServeData() (listen, certFile, keyFile string) {
-	listen = os.Getenv("LISTEN")
+	listen = os.Getenv("HTTP_LISTEN")
 	if listen == "" {
-		log.Fatalln("please set LISTEN environmental variable")
+		log.Fatalln("please set HTTP_LISTEN environmental variable")
 	}
 	certFile = os.Getenv("TLS_CERT")
 	if certFile == "" {
@@ -46,4 +47,22 @@ func getServeData() (listen, certFile, keyFile string) {
 		log.Fatalln("please set TLS_KEY environmental variable")
 	}
 	return
+}
+
+func getGrpcListener() net.Listener {
+	// Get protocol
+	protocol := "tcp"
+	if envProtocol := os.Getenv("GRPC_LISTEN_PROTOCOL"); envProtocol != "" {
+		protocol = envProtocol
+	}
+	// Listen
+	listenAddress := os.Getenv("GRPC_LISTEN_ADDRESS")
+	if listenAddress == "" {
+		log.Fatalln("please set GRPC_LISTEN_ADDRESS environmental variable")
+	}
+	listener, err := net.Listen(protocol, listenAddress)
+	if err != nil {
+		log.Fatalf("cannot listen: %s\n", err)
+	}
+	return listener
 }

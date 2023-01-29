@@ -1,6 +1,7 @@
 package database
 
 import (
+	"AuthCore/pkg/proto"
 	"context"
 	"github.com/go-faster/errors"
 	"github.com/jackc/pgx/v5"
@@ -49,7 +50,22 @@ func (db Database) AuthUser(ctx context.Context, email, password string) (int64,
 }
 
 // GetUserData will get all of someone's shit from database
-func (db Database) GetUserData(userID int64) error {
-	// TODO
-	return nil
+func (db Database) GetUserData(ctx context.Context, userID int64) (*proto.UserInfo, error) {
+	// Query data
+	var gender Gender
+	result := new(proto.UserInfo)
+	err := db.db.QueryRow(ctx, "SELECT email, phone_number, gender, first_name, last_name FROM user_account WHERE user_id=$1", userID).
+		Scan(&result.Email, &result.PhoneNumber, &gender, &result.FirstName, &result.LastName)
+	if err != nil {
+		return nil, err
+	}
+	// Finalize
+	result.UserId = userID
+	switch gender {
+	case GenderMale:
+		result.Gender = proto.Gender_MALE
+	case GenderFemale:
+		result.Gender = proto.Gender_FEMALE
+	}
+	return result, nil
 }
