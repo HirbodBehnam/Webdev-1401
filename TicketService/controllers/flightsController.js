@@ -49,7 +49,7 @@ const findFlights = async (req, res) => {
     const departFlights = await findFlightsWithDate(origin, destination, departureDate, passengers)
 
     if(hasReturn) {
-        const returnFlights = await findFlightsWithDate(origin, destination, returnDate, passengers);
+        const returnFlights = await findFlightsWithDate(destination, origin, returnDate, passengers);
         return res.json({depart: departFlights, return: returnFlights});
     } else
         return res.json(departFlights)
