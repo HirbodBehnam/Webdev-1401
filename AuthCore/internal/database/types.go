@@ -12,6 +12,17 @@ const (
 	GenderFemale
 )
 
+func (g *Gender) String() string {
+	switch *g {
+	case GenderMale:
+		return "m"
+	case GenderFemale:
+		return "f"
+	default:
+		return "u"
+	}
+}
+
 func (g *Gender) Value() (driver.Value, error) {
 	switch *g {
 	case GenderMale:

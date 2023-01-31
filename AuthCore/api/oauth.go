@@ -5,6 +5,7 @@ import (
 	"AuthCore/pkg/oauth2"
 	"github.com/gin-gonic/gin"
 	"github.com/go-faster/errors"
+	"github.com/jackc/pgx/v5/pgconn"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 	"time"
@@ -15,12 +16,26 @@ func (api *API) SignUpUser(c *gin.Context) {
 	// Get the form
 	var request signupRequest
 	if err := c.Bind(&request); err != nil {
-		c.JSON(http.StatusBadRequest, errorResponse{cannotParseBodyErr})
+		c.JSON(http.StatusBadRequest, errorResponse{cannotParseBodyErr + ": " + err.Error()})
+		return
+	}
+	// Parse gender
+	var gender database.Gender
+	err := gender.UnmarshalText([]byte(request.Gender))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, errorResponse{cannotParseBodyErr + ": cannot parse gender"})
 		return
 	}
 	// Insert into database
-	err := api.Database.SignUpUser(c.Request.Context(), request.Email, request.Phone, request.FirstName, request.SecondName, request.Password, request.Gender)
-	// TODO: check for duplicate?
+	err = api.Database.SignUpUser(c.Request.Context(), request.Email, request.Phone, request.FirstName, request.SecondName, request.Password, gender)
+	// Check for duplicate
+	if pgErr, ok := err.(*pgconn.PgError); ok {
+		if pgErr.Code == "23505" {
+			c.JSON(http.StatusConflict, errorResponse{userExistsErr})
+			return
+		}
+	}
+	// General error
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, errorResponse{internalServerErrorText})
 		log.WithError(err).WithField("request", request).Error("cannot signup user")

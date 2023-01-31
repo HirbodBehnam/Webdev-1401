@@ -1,20 +1,16 @@
 package api
 
-import "AuthCore/internal/database"
-
-const internalServerErrorText = "internal error"
-
 type errorResponse struct {
 	Error string `json:"error"`
 }
 
 type signupRequest struct {
-	Email      string          `form:"email" binding:"required"`
-	Phone      string          `form:"phone" binding:"required"`
-	Password   string          `form:"password" binding:"required"`
-	FirstName  string          `form:"first_name" binding:"required"`
-	SecondName string          `form:"second_name" binding:"required"`
-	Gender     database.Gender `form:"gender" binding:"required"`
+	Email      string `form:"email" binding:"required"`
+	Phone      string `form:"phone" binding:"required"`
+	Password   string `form:"password" binding:"required"`
+	FirstName  string `form:"first_name" binding:"required"`
+	SecondName string `form:"second_name" binding:"required"`
+	Gender     string `form:"gender" binding:"required"`
 }
 
 type refreshTokenRequest struct {

@@ -24,7 +24,7 @@ var InvalidCredentialsErr = errors.New("invalid credentials")
 func (db Database) SignUpUser(ctx context.Context, email, phone, firstName, secondName, password string, gender Gender) error {
 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	_, err := db.db.Exec(ctx, "INSERT INTO user_account (email, phone_number, gender, first_name, last_name, password_hash) VALUES ($1, $2, $3, $4, $5, $6)",
-		email, phone, gender, firstName, secondName, hashedPassword)
+		email, phone, gender.String(), firstName, secondName, hashedPassword)
 	return err
 }
 
@@ -52,15 +52,17 @@ func (db Database) AuthUser(ctx context.Context, email, password string) (int64,
 // GetUserData will get all of someone's shit from database
 func (db Database) GetUserData(ctx context.Context, userID int64) (*proto.UserInfo, error) {
 	// Query data
-	var gender Gender
+	var genderString string
 	result := new(proto.UserInfo)
 	err := db.db.QueryRow(ctx, "SELECT email, phone_number, gender, first_name, last_name FROM user_account WHERE user_id=$1", userID).
-		Scan(&result.Email, &result.PhoneNumber, &gender, &result.FirstName, &result.LastName)
+		Scan(&result.Email, &result.PhoneNumber, &genderString, &result.FirstName, &result.LastName)
 	if err != nil {
 		return nil, err
 	}
 	// Finalize
 	result.UserId = userID
+	var gender Gender
+	_ = gender.UnmarshalText([]byte(genderString))
 	switch gender {
 	case GenderMale:
 		result.Gender = proto.Gender_MALE
