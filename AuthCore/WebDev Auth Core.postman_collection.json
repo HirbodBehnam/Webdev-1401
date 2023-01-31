@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "3701fa70-d4b1-474b-9171-b0d41649b2ce",
+		"name": "WebDev Auth Core",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14537487"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "a1@gmail.com",
+							"description": "Email of user to register",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "123456",
+							"description": "Phone number of user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1234",
+							"description": "Password for account",
+							"type": "text"
+						},
+						{
+							"key": "first_name",
+							"value": "Hirbod",
+							"description": "First name of user",
+							"type": "text"
+						},
+						{
+							"key": "second_name",
+							"value": "Behnam",
+							"description": "Last name of user",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "m",
+							"description": "Either \"m\" or \"f\"",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/signup",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Signup User Exists",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "a@gmail.com",
+									"description": "Email of user to register",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "12345",
+									"description": "Phone number of user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"description": "Password for account",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Hirbod",
+									"description": "First name of user",
+									"type": "text"
+								},
+								{
+									"key": "second_name",
+									"value": "Behnam",
+									"description": "Last name of user",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "m",
+									"description": "Either \"m\" or \"f\"",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/signup",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 31 Jan 2023 10:05:00 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "31"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"user already exists\"\n}"
+				},
+				{
+					"name": "Signup Ok",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "a1@gmail.com",
+									"description": "Email of user to register",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "123456",
+									"description": "Phone number of user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"description": "Password for account",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Hirbod",
+									"description": "First name of user",
+									"type": "text"
+								},
+								{
+									"key": "second_name",
+									"value": "Behnam",
+									"description": "Last name of user",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "m",
+									"description": "Either \"m\" or \"f\"",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/signup",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 31 Jan 2023 10:09:22 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						}
+					],
+					"cookie": [],
+					"body": "{}"
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "a@gmail.com",
+							"description": "Email of user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1234",
+							"description": "Password of user",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/login",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Login OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "a@gmail.com",
+									"description": "Email of user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"description": "Password of user",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 31 Jan 2023 13:16:31 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "113"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access_token\": \"EMY2YHKJPWJRYJBF5TAWUSXDZQ======\",\n    \"refresh_token\": \"WCHJL4Z3SU44XYALPTVDPYGLLY======\",\n    \"ttl\": 1800\n}"
+				},
+				{
+					"name": "Login Failed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "a@gmail.com",
+									"description": "Email of user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234۵",
+									"description": "Password of user",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 31 Jan 2023 13:17:29 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "31"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"invalid credentials\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/refresh?refresh_token=KVJXDW2CN7GOATF3TO5FMETABU======",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"refresh"
+					],
+					"query": [
+						{
+							"key": "refresh_token",
+							"value": "KVJXDW2CN7GOATF3TO5FMETABU======",
+							"description": "The refresh token"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Invalid Refresh Token",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/refresh?refresh_token=KVJXDW2CN7GOATF3TO5FMETABU======",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"refresh"
+							],
+							"query": [
+								{
+									"key": "refresh_token",
+									"value": "KVJXDW2CN7GOATF3TO5FMETABU======",
+									"description": "The refresh token"
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 31 Jan 2023 14:18:40 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "33"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"invalid refresh token\"\n}"
+				},
+				{
+					"name": "Refresh Token OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/refresh?refresh_token=KVJXDW2CN7GOATF3TO5FMETABU======",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"refresh"
+							],
+							"query": [
+								{
+									"key": "refresh_token",
+									"value": "KVJXDW2CN7GOATF3TO5FMETABU======",
+									"description": "The refresh token"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 31 Jan 2023 14:23:09 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "113"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access_token\": \"KTI2LWGQAFAY27GZD3WVSI6SRI======\",\n    \"refresh_token\": \"KVJXDW2CN7GOATF3TO5FMETABU======\",\n    \"ttl\": 1800\n}"
+				}
+			]
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/logout",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Logout",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/logout",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 31 Jan 2023 14:27:18 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						}
+					],
+					"cookie": [],
+					"body": "{}"
+				}
+			]
+		}
+	]
+}
