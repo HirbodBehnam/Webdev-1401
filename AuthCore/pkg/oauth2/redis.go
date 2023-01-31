@@ -55,7 +55,7 @@ func (r redisStorage) Refresh(refreshToken string, ttl time.Duration) (newAccess
 		return "", errors.Wrap(accessTokenData.Err(), "cannot get access token of refresh token")
 	}
 	r.client.Expire(context.Background(), refreshTokenPrefix+refreshToken, ttl)
-	accessToken := accessTokenData.String()
+	accessToken := accessTokenData.Val()
 	// Renew TTL
 	changedTTL := r.client.Expire(context.Background(), accessTokenPrefix+accessToken, ttl)
 	if changed, _ := changedTTL.Result(); !changed {

@@ -37,7 +37,7 @@ func startHTTPServer(oauth oauth2.Oauth2, db database.Database) {
 	g := gin.Default()
 	g.POST("/signup", apiServer.SignUpUser)
 	g.POST("/login", apiServer.LoginUser)
-	g.POST("/refresh", apiServer.RefreshToken)
+	g.GET("/refresh", apiServer.RefreshToken)
 	g.POST("/logout", apiServer.SignOutUser)
 	// Done!
 	err := g.RunTLS(getServeData())

@@ -2,7 +2,7 @@ package oauth2
 
 import (
 	"crypto/rand"
-	"encoding/base64"
+	"encoding/base32"
 )
 
 type Oauth2 struct {
@@ -16,5 +16,5 @@ func NewOauth2(storage Storage) Oauth2 {
 func NewToken() string {
 	b := make([]byte, 16)
 	_, _ = rand.Read(b)
-	return base64.StdEncoding.EncodeToString(b)
+	return base32.StdEncoding.EncodeToString(b)
 }
