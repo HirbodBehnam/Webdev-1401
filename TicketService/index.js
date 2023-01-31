@@ -11,8 +11,11 @@ app.use((req, res, next)=>{
   console.log(req.params);
   next();
 })
+
 // routes
-app.use('/flights', flightsRoute);
+app.use(flightsRoute)
+
+// listen on port
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
 })

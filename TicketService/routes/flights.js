@@ -5,6 +5,6 @@ const router = express.Router();
 const flightsController = require('../controllers/flightsController');
 
 // define routes
-router.get('/:from/:to/:departureDate/:passengers', flightsController.findFlightsWithDeparture);
+router.get('/flights', flightsController.findFlights)
 
 module.exports = router;
