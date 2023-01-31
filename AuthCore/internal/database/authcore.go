@@ -35,7 +35,7 @@ func (db Database) AuthUser(ctx context.Context, email, password string) (int64,
 	// Query database
 	var userID int64
 	var hashedPassword string
-	err := db.db.QueryRow(ctx, "SELECT user_id, password_hash FROM user_account WHERE email=$1", email).Scan(&userID, hashedPassword)
+	err := db.db.QueryRow(ctx, "SELECT user_id, password_hash FROM user_account WHERE email=$1", email).Scan(&userID, &hashedPassword)
 	if err == pgx.ErrNoRows {
 		return 0, InvalidCredentialsErr
 	}
