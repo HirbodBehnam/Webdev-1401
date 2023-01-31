@@ -1,7 +1,7 @@
 const db = require('../db');
-const findFlightsWithDate = async (from, to, date, passengers) => {
+const findFlightsWithDate = async (from, to, date) => {
     return db.any("SELECT * FROM available_offers WHERE origin = $1 AND destination = $2 AND date_trunc('day',departure_local_time) =  $3",
-        [from, to, date ]);
+        [from, to, date]);
 };
 
 const hasQueryAllParameters = (query) => {
@@ -11,8 +11,6 @@ const hasQueryAllParameters = (query) => {
         return {msg:"missing destination"};
     } else if( !query.departureDate){
         return {msg:"missing departureDate"};
-    } else if(!query.passengers){
-        return {msg:"missing passengers"};
     }
 }
 
@@ -35,7 +33,7 @@ const findFlights = async (req, res) => {
         hasReturn = true;
 
     // extrcat query parameters
-    let {origin, destination, departureDate, returnDate, passengers} = req.query;
+    let {origin, destination, departureDate, returnDate} = req.query;
 
     // date format validation
     if(!isValidDate(departureDate))
@@ -44,12 +42,14 @@ const findFlights = async (req, res) => {
     if(hasReturn)
         if(!isValidDate(returnDate))
             return res.json({msg:"date must be in format YYYY-MM-DD"})
+        if(Date.parse(departureDate) < Date.parse(returnDate))
+            return res.json({msg:"return date before departureDate"})
 
     // search flights
-    const departFlights = await findFlightsWithDate(origin, destination, departureDate, passengers)
+    const departFlights = await findFlightsWithDate(origin, destination, departureDate)
 
     if(hasReturn) {
-        const returnFlights = await findFlightsWithDate(destination, origin, returnDate, passengers);
+        const returnFlights = await findFlightsWithDate(destination, origin, returnDate);
         return res.json({depart: departFlights, return: returnFlights});
     } else
         return res.json(departFlights)
