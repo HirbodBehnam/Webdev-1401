@@ -3,17 +3,17 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
+//import routes
 const flightsRoute =  require('./routes/flights')
+const purchasesRoute =  require('./routes/purchases')
+
 
 // use middleware to access req body
 app.use(express.json());
-app.use((req, res, next)=>{
-  console.log(req.params);
-  next();
-})
 
 // routes
 app.use(flightsRoute)
+app.use(purchasesRoute)
 
 // listen on port
 app.listen(process.env.PORT, () => {
