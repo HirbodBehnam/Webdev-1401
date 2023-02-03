@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const validateToken = require('../middleware/userAuth');
+const validateToken = require("../middleware/userAuth");
 
-const  getPurchases  = require('../controllers/purchasesController');
+const getPurchases = require("../controllers/purchasesController");
 
-router.get('/purchases', validateToken, getPurchases);
+router.get("/purchases", validateToken, getPurchases);
 module.exports = router;
