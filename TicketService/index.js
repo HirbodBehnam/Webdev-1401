@@ -1,11 +1,12 @@
-require("dotenv").config();
+require('dotenv').config();
 
-const express = require("express");
+const express = require('express');
+
 const app = express();
 
-//import routes
-const flightsRoute = require("./routes/flights");
-const purchasesRoute = require("./routes/purchases");
+// import routes
+const flightsRoute = require('./routes/flights');
+const purchasesRoute = require('./routes/purchases');
 
 // use middleware to access req body
 app.use(express.json());
