@@ -1,6 +1,6 @@
 const { query } = require('express-validator');
 
-const midllewares = [
+const middleware = [
   query('origin').notEmpty(),
   query('destination').notEmpty(),
   query('departureDate')
@@ -31,4 +31,4 @@ const midllewares = [
     }),
 ];
 
-module.exports = midllewares;
+module.exports = middleware;
