@@ -7,7 +7,7 @@ const findFlightsWithDate = async (from, to, date) => db.any(
 );
 
 const findFlights = async (req, res) => {
-  // extrcat query parameters
+  // extract query parameters
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.json({ errors: errors.array() });
