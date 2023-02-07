@@ -4,8 +4,6 @@ const { validationResult } = require("express-validator");
 const db = require("../db");
 
 const getPurchases = async (req, res) => {
-  // console.log('hey');
-  // console.log(req.user);
   const result = await db.any(
     "SELECT * FROM purchase WHERE corresponding_user_id = $1",
     [req.user.id]
@@ -14,17 +12,14 @@ const getPurchases = async (req, res) => {
 };
 
 const purchaseTicket = async (req, res) => {
-  // get user ID, flight ID and flight class
-  // get the `available_offers` view
-  // check if 1) the flight class has capacity and 2) it's not past the departure time UTC
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.json({ errors: errors.array() });
   }
-  const { flightId, flightType } = req.body;
+  const { flightId, flightClass } = req.body;
   const availableOffers = await db.any(
     "SELECT * FROM available_offers WHERE flight_id = $1",
-    flightId
+    flightId.toString()
   );
   // console.log(JSON.stringify(availableOffers));
   if (availableOffers.length === 0) {
@@ -36,7 +31,7 @@ const purchaseTicket = async (req, res) => {
   const offer = availableOffers[0];
   let freeCapacity = 0;
   let flightPrice = Infinity;
-  switch (flightType) {
+  switch (flightClass) {
     case "y":
       freeCapacity = offer.y_class_free_capacity;
       flightPrice = offer.y_price;
@@ -61,29 +56,29 @@ const purchaseTicket = async (req, res) => {
   }
   // todo should we reserve the seat for the passenger?
   const transactionUuid = uuid.v4();
-  const bankResponse = await axios.post(`${process.env.BANK_URL}/transaction`, {
-    amount: flightPrice,
-    receipt_id: process.env.BANK_RECEIPT_ID,
-    callback: `${process.env.HOST}:${process.env.PORT}/purchase/callback/${transactionUuid}`,
-  });
-  const { id: transactionId } = await bankResponse.json();
-  // todo create transaction draft table
+  const bankResponse = await axios.post(
+    `http://${process.env.BANK_URL}/transaction/`,
+    {
+      amount: flightPrice,
+      receipt_id: process.env.BANK_RECEIPT_ID,
+      callback: `http://${process.env.HOST}:${process.env.PORT}/purchase/callback/${transactionUuid}`,
+    }
+  );
+  const transactionId = bankResponse.data.id;
   await db.none(
     "INSERT INTO transaction_draft (corresponding_user_id, flight_serial, offer_price, offer_class, transaction_id, uuid) VALUES ($1, $2, $3, $4, $5, $6)",
     [
       req.user.id,
       flightId,
       flightPrice,
-      flightType,
+      flightClass,
       transactionId,
       transactionUuid,
     ]
   );
-  return res.redirect(`${process.env.BANK_URL}/payment/${transactionId}/`);
-  // get the flight price based on type
-  // do the transaction
-  // if the transaction was successful, create a new `purchase` object
-  // show the response to user
+  return res.redirect(
+    `http://${process.env.BANK_URL}/payment/${transactionId}/`
+  );
 };
 
 const transactionRedirect = async (req, res) => {
@@ -92,34 +87,45 @@ const transactionRedirect = async (req, res) => {
     return res.json({ errors: errors.array() });
   }
   const { transactionUuid, result } = req.params;
-  const transactionDraft = await db.one(
-    "SELECT * FROM transaction_draft WHERE uuid = $1",
-    transactionUuid
-  );
-  if (!transactionDraft) {
+  let transactionDraft;
+  try {
+    transactionDraft = await db.one(
+      "SELECT * FROM transaction_draft WHERE uuid = $1",
+      transactionUuid
+    );
+  } catch (error) {
     return res.status(400).send("wrong uuid!");
   }
   if (result > 1) {
     await db.none(
       "DELETE FROM transaction_draft WHERE uuid = $1",
-      transactionDraft
+      transactionUuid
     );
     return res.status(400).send("payment was not successful!");
   }
-  // todo this needs to connect to auth db
-  const correspondingUser = await authDb.one(
-    "SELECT * FROM user_account WHERE user_id = $1",
-    transactionDraft.corresponding_user_id
-  );
-  if (!correspondingUser) {
+  let correspondingUser;
+  try {
+    correspondingUser = await db.one(
+      "SELECT * FROM user_account WHERE user_id = $1",
+      transactionDraft.corresponding_user_id
+    );
+  } catch (error) {
     return res.status(400).send("wrong user!");
   }
   let userTitle;
-  if (correspondingUser.gender === "M") userTitle = "Mr.";
-  else if (correspondingUser.gender === "F") userTitle = "Ms.";
-  else {
-    return res.sendStatus(500);
+  if (correspondingUser.gender === "m") userTitle = "Mr.";
+  else if (correspondingUser.gender === "f") userTitle = "Ms.";
+  else return res.sendStatus(500);
+  let flight;
+  try {
+    flight = db.one(
+      "SELECT * FROM flight WHERE flight_id = $1",
+      transactionDraft.flight_serial
+    );
+  } catch (error) {
+    return res.status(400).send("no flights available!");
   }
+  // console.log(JSON.stringify(flight));
   await db.none(
     "INSERT INTO purchase (corresponding_user_id, title, first_name, last_name, flight_serial, offer_price, offer_class, transaction_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
     [
@@ -127,7 +133,7 @@ const transactionRedirect = async (req, res) => {
       userTitle,
       correspondingUser.first_name,
       correspondingUser.last_name,
-      transactionDraft.flight_serial,
+      flight.flight_serial,
       transactionDraft.offer_price,
       transactionDraft.offer_class,
       transactionDraft.transaction_id,
@@ -135,7 +141,7 @@ const transactionRedirect = async (req, res) => {
   );
   await db.none(
     "DELETE FROM transaction_draft WHERE uuid = $1",
-    transactionDraft
+    transactionUuid
   );
   return res.sendStatus(200);
 };

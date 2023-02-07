@@ -15,8 +15,12 @@ const {
 } = require("../controllers/purchasesController");
 
 router.get("/purchases", validateToken, getPurchases);
-// todo router.post('/purchase', validateToken, purchaseTicketMiddleware, purchaseTicket);
-router.post("/purchase", ...purchaseTicketMiddleware, purchaseTicket);
+router.post(
+  "/purchase",
+  validateToken,
+  ...purchaseTicketMiddleware,
+  purchaseTicket
+);
 router.get(
   "/purchase/callback/:transactionUuid/:result",
   transactionRedirectMiddleware,
