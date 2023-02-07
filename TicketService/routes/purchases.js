@@ -1,10 +1,26 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
 
-const validateToken = require('../middleware/userAuth');
+const validateToken = require("../middleware/userAuth");
+const {
+  purchaseTicketMiddleware,
+  transactionRedirectMiddleware,
+} = require("../middleware/purchaseMiddleware");
 
-const getPurchases = require('../controllers/purchasesController');
+const {
+  getPurchases,
+  purchaseTicket,
+  transactionRedirect,
+} = require("../controllers/purchasesController");
 
-router.get('/purchases', validateToken, getPurchases);
+router.get("/purchases", validateToken, getPurchases);
+// todo router.post('/purchase', validateToken, purchaseTicketMiddleware, purchaseTicket);
+router.post("/purchase", ...purchaseTicketMiddleware, purchaseTicket);
+router.get(
+  "/purchase/callback/:transactionUuid/:result",
+  transactionRedirectMiddleware,
+  transactionRedirect
+);
+
 module.exports = router;

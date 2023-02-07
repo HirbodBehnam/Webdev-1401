@@ -3,8 +3,8 @@
 // console.log(process.env.DATABASE_URL)
 // const db = pgp(process.env.DATABASE_URL)
 
-require('dotenv').config();
-const pgp = require('pg-promise')({});
+require("dotenv").config();
+const pgp = require("pg-promise")({});
 
 const cn = {
   host: process.env.DB_HOST,
