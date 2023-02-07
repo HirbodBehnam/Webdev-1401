@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+const axios = require("axios");
 const uuid = require("uuid");
 const { validationResult } = require("express-validator");
 const db = require("../db");
@@ -61,14 +61,10 @@ const purchaseTicket = async (req, res) => {
   }
   // todo should we reserve the seat for the passenger?
   const transactionUuid = uuid.v4();
-  const bankResponse = await fetch(`${process.env.BANK_URL}/transaction`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      amount: flightPrice,
-      receipt_id: process.env.BANK_RECEIPT_ID,
-      callback: `${process.env.HOST}:${process.env.PORT}/purchase/callback/${transactionUuid}`,
-    }),
+  const bankResponse = await axios.post(`${process.env.BANK_URL}/transaction`, {
+    amount: flightPrice,
+    receipt_id: process.env.BANK_RECEIPT_ID,
+    callback: `${process.env.HOST}:${process.env.PORT}/purchase/callback/${transactionUuid}`,
   });
   const { id: transactionId } = await bankResponse.json();
   // todo create transaction draft table
