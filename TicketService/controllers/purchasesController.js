@@ -21,10 +21,10 @@ const purchaseTicket = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.json({ errors: errors.array() });
   }
-  const { flightId, flightClass } = req.body;
+  const { flightSerial, flightClass } = req.body;
   const availableOffers = await db.any(
-    "SELECT * FROM available_offers WHERE flight_id = $1",
-    flightId
+    "SELECT * FROM available_offers WHERE flight_serial = $1",
+    flightSerial
   );
   if (availableOffers.length === 0) {
     return res.status(404).send("this flight does not exist!");
@@ -58,19 +58,6 @@ const purchaseTicket = async (req, res) => {
   if (now > offer.departure_local_time) {
     return res.status(400).send("too late bitch!");
   }
-  let flight;
-  console.log(flightId);
-  try {
-    flight = db.one(
-      "SELECT * FROM flight WHERE flight_id = $1",
-      flightId
-    );
-  } catch (error) {
-    return res.status(400).send("no flights available!");
-  }
-  console.log(JSON.stringify(flight));
-  console.log(flight.flight_serial);
-  // todo should we reserve the seat for the passenger?
   const transactionUuid = uuid.v4();
   const bankResponse = await axios.post(
     `http://${process.env.BANK_URL}/transaction/`,
@@ -84,8 +71,8 @@ const purchaseTicket = async (req, res) => {
   await db.none(
     "INSERT INTO transaction_draft (corresponding_user_id, flight_serial, offer_price, offer_class, transaction_id, uuid) VALUES ($1, $2, $3, $4, $5, $6)",
     [
-      req.user.user_id,
-      flight.flight_serial,
+      req.user.id,
+      flightSerial,
       flightPrice,
       flightClass,
       transactionId,

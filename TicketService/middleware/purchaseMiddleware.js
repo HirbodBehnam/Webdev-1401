@@ -2,7 +2,7 @@ const { check, param } = require("express-validator");
 const uuid = require("uuid");
 
 const purchaseTicketMiddleware = [
-  check("flightId").isString().withMessage("flightId should be a string"),
+  check("flightSerial").isInt().withMessage("flightSerial should be an integer!"),
   check("flightClass").isIn(["y", "j", "f"]).withMessage("wrong flight class!"),
 ];
 
