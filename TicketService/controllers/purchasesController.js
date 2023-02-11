@@ -13,7 +13,7 @@ const getPurchases = async (req, res) => {
     "SELECT * FROM purchase WHERE corresponding_user_id = $1",
     [req.user.id]
   );
-  return res.json({ message: result });
+  return res.json({ purchases: result });
 };
 
 const purchaseTicket = async (req, res) => {

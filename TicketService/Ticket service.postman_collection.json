@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "d6cfbcb2-f4b6-4e5a-a245-70ddb41333ba",
+		"name": "Ticket service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25454052"
+	},
+	"item": [
+		{
+			"name": "Purchases History",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4TA7UDNBECW6I3SHNZUR2XPI4A======",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/purchases",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"purchases"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fligths",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{TICKET_URL}}/localhost:5000/flights?origin=VNS&destination=EWR&departureDate=2023-02-13",
+					"host": [
+						"{{TICKET_URL}}"
+					],
+					"path": [
+						"localhost:5000",
+						"flights"
+					],
+					"query": [
+						{
+							"key": "origin",
+							"value": "VNS"
+						},
+						{
+							"key": "destination",
+							"value": "EWR"
+						},
+						{
+							"key": "departureDate",
+							"value": "2023-02-13"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "invalid fligths search",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/flights?origin=VNS&destination=EWR&departureDate=2023-02&returnDate=2022-02",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"flights"
+							],
+							"query": [
+								{
+									"key": "origin",
+									"value": "VNS"
+								},
+								{
+									"key": "destination",
+									"value": "EWR"
+								},
+								{
+									"key": "departureDate",
+									"value": "2023-02"
+								},
+								{
+									"key": "returnDate",
+									"value": "2022-02"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "valid fligths search",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/flights?origin=VNS&destination=EWR&departureDate=2023-02&returnDate=2022-02",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"flights"
+							],
+							"query": [
+								{
+									"key": "origin",
+									"value": "VNS"
+								},
+								{
+									"key": "destination",
+									"value": "EWR"
+								},
+								{
+									"key": "departureDate",
+									"value": "2023-02"
+								},
+								{
+									"key": "returnDate",
+									"value": "2022-02"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Purchase Ticket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"flightSerial\":5,\n    \"flightClass\": \"j\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{TICKET_URL}}/purchase",
+					"host": [
+						"{{TICKET_URL}}"
+					],
+					"path": [
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
