@@ -8,7 +8,7 @@ const purchaseTicketMiddleware = [
 
 const transactionRedirectMiddleware = [
   param("transactionUuid")
-    .exists()
+    .isString()
     .custom((value) => {
       if (!uuid.validate(value)) throw new Error("invalid uuid!");
       return true;

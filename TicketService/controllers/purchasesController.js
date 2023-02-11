@@ -24,9 +24,8 @@ const purchaseTicket = async (req, res) => {
   const { flightId, flightClass } = req.body;
   const availableOffers = await db.any(
     "SELECT * FROM available_offers WHERE flight_id = $1",
-    flightId.toString()
+    flightId
   );
-  // console.log(JSON.stringify(availableOffers));
   if (availableOffers.length === 0) {
     return res.status(404).send("this flight does not exist!");
   }
@@ -59,6 +58,18 @@ const purchaseTicket = async (req, res) => {
   if (now > offer.departure_local_time) {
     return res.status(400).send("too late bitch!");
   }
+  let flight;
+  console.log(flightId);
+  try {
+    flight = db.one(
+      "SELECT * FROM flight WHERE flight_id = $1",
+      flightId
+    );
+  } catch (error) {
+    return res.status(400).send("no flights available!");
+  }
+  console.log(JSON.stringify(flight));
+  console.log(flight.flight_serial);
   // todo should we reserve the seat for the passenger?
   const transactionUuid = uuid.v4();
   const bankResponse = await axios.post(
@@ -66,7 +77,7 @@ const purchaseTicket = async (req, res) => {
     {
       amount: flightPrice,
       receipt_id: process.env.BANK_RECEIPT_ID,
-      callback: `http://${process.env.HOST}:${process.env.PORT}/purchase/callback/${transactionUuid}`,
+      callback: `https://${process.env.HOST}:${process.env.PORT}/purchase/callback/${transactionUuid}`,
     }
   );
   const transactionId = bankResponse.data.id;
@@ -74,7 +85,7 @@ const purchaseTicket = async (req, res) => {
     "INSERT INTO transaction_draft (corresponding_user_id, flight_serial, offer_price, offer_class, transaction_id, uuid) VALUES ($1, $2, $3, $4, $5, $6)",
     [
       req.user.user_id,
-      flightId,
+      flight.flight_serial,
       flightPrice,
       flightClass,
       transactionId,
@@ -121,15 +132,7 @@ const transactionRedirect = async (req, res) => {
   if (correspondingUser.gender === "m") userTitle = "Mr.";
   else if (correspondingUser.gender === "f") userTitle = "Ms.";
   else return res.sendStatus(500);
-  let flight;
-  try {
-    flight = db.one(
-      "SELECT * FROM flight WHERE flight_id = $1",
-      transactionDraft.flight_serial
-    );
-  } catch (error) {
-    return res.status(400).send("no flights available!");
-  }
+  
   await db.none(
     "INSERT INTO purchase (corresponding_user_id, title, first_name, last_name, flight_serial, offer_price, offer_class, transaction_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
     [
@@ -137,7 +140,7 @@ const transactionRedirect = async (req, res) => {
       userTitle,
       correspondingUser.first_name,
       correspondingUser.last_name,
-      flight.flight_serial,
+      transactionDraft.flight_serial,
       transactionDraft.offer_price,
       transactionDraft.offer_class,
       transactionDraft.transaction_id,
