@@ -1,4 +1,8 @@
-const axios = require("axios");
+const axios = require("axios").create({
+  httpsAgent: new https.Agent({
+    rejectUnauthorized: false
+  })
+});
 const uuid = require("uuid");
 const { validationResult } = require("express-validator");
 const db = require("../db");
@@ -68,7 +72,7 @@ const purchaseTicket = async (req, res) => {
   await db.none(
     "INSERT INTO transaction_draft (corresponding_user_id, flight_serial, offer_price, offer_class, transaction_id, uuid) VALUES ($1, $2, $3, $4, $5, $6)",
     [
-      req.user.id,
+      req.user.user_id,
       flightId,
       flightPrice,
       flightClass,
@@ -125,7 +129,6 @@ const transactionRedirect = async (req, res) => {
   } catch (error) {
     return res.status(400).send("no flights available!");
   }
-  // console.log(JSON.stringify(flight));
   await db.none(
     "INSERT INTO purchase (corresponding_user_id, title, first_name, last_name, flight_serial, offer_price, offer_class, transaction_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
     [

@@ -1,3 +1,4 @@
+const fs = require('fs');
 require("dotenv").config();
 
 const express = require("express");
@@ -15,7 +16,13 @@ app.use(express.json());
 app.use(flightsRoute);
 app.use(purchasesRoute);
 
+const sslOptions = {
+  key: fs.readFileSync('ssl/key.pem'),
+  cert: fs.readFileSync('ssl/cert.pem')
+};
+const server = https.createServer(sslOptions, app);
+
 // listen on port
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
 });
