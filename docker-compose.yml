@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  nginx:
+    restart: on-failure
+    build:
+      context: ./
+      dockerfile: ./Frontend/Dockerfile
+    ports:
+      - "8000:80"
