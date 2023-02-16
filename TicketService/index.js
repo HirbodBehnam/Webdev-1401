@@ -17,11 +17,16 @@ app.use(express.json());
 app.use(flightsRoute);
 app.use(purchasesRoute);
 
-const sslOptions = {
-  key: fs.readFileSync('ssl/key.pem'),
-  cert: fs.readFileSync('ssl/cert.pem')
-};
-const server = https.createServer(sslOptions, app);
+let server;
+try {
+  const sslOptions = {
+    key: fs.readFileSync('ssl/key.pem'),
+    cert: fs.readFileSync('ssl/cert.pem')
+  };
+  server = https.createServer(sslOptions, app);
+} catch (err) {
+  server = app;
+}
 
 // listen on port
 server.listen(process.env.PORT, () => {

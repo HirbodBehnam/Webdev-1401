@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  database:
+    restart: on-failure
+    image: postgres:alpine
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - "/tmp/postgres_db:/var/lib/postgresql/data"
+  redis:
+    restart: on-failure
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  authcore:
+    restart: on-failure
+    environment:
+      - REDIS_URL=redis:6379
+      - REDIS_DB=1
+      - DATABASE_URL=postgres://postgres:1234@database:5432/postgres
+      - HTTP_LISTEN=0.0.0.0:51691
+      - GRPC_LISTEN_ADDRESS=0.0.0.0:21901
+    build:
+      context: ./AuthCore
+    depends_on:
+      - redis
+      - database
+  ticketcore:
+    restart: on-failure
+    environment:
+      - HOST=0.0.0.0
+      - PORT=5000
+      - DB_USER=postgres
+      - DB_PASSWORD=1234
+      - DB_DATABASE=postgres
+      - DB_PORT=5432
+      - DB_HOST=database
+      - BANK_URL=1.1.1.1:8888
+      - BANK_RECEIPT_ID=42069420
+    build:
+      context: ./TicketService
+    depends_on:
+      - database
+      - authcore
+  nginx:
+    restart: on-failure
+    build:
+      context: ./Frontend
+    ports:
+      - "8000:80"
+    depends_on:
+      - authcore
