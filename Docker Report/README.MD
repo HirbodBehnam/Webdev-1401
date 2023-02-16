@@ -50,3 +50,64 @@ nginx
 یکی از مشکلاتی که به آن در حین ساخت داکر فایل برخوردیم کپی تمامی استراکچر بندی فولدر‌ها به صورت بازگشتی در کانتینر بود که به کمی جست و جو به 
 [این](https://stackoverflow.com/q/30215830)
 سوال رسیدیم و به کمک این مشکل را حل کردیم.
+
+## Postgres
+برای بالا اوردن دیتابیس postgres از دستور زیر استفاده می‌کنیم:
+```bash
+sudo docker run -d \
+	--name some-postgres \
+	-e POSTGRES_PASSWORD=1234 \
+	-e PGDATA=/var/lib/postgresql/data/pgdata \
+	-v /tmp/postgres_db:/var/lib/postgresql/data \
+	postgres:alpine
+```
+با این کار ایمیج postgres را بالا می‌آوریم و رمز آنرا 1234 قرار می‌دهیم. همچنین برای اینکه دیتای دیتابیس بعد از down شدن ایمیج بماند مسیر
+`/var/lib/postgresql/data`
+در کانتینر را به
+`/tmp/postgres_db`
+بر روی کامپیوتر خود مپ می‌کنیم. برای سبک شدن ایمیج نیز از نسخه‌ی alpine استفاده می‌کنیم.
+
+بعد از اجرای دستور فوق دستور
+`sudo docker ps`
+را اجرا می‌کنیم. خروجی چیزی شبیه به عبارت زیر است:
+```
+CONTAINER ID   IMAGE             COMMAND                  CREATED              STATUS              PORTS      NAMES
+0d4a1429f3d1   postgres:alpine   "docker-entrypoint.s…"   About a minute ago   Up About a minute   5432/tcp   some-postgres
+```
+به کمک دستور
+`sudo docker exec -it some-postgres /bin/sh`
+یک شل بر روی داکر میگیریم. در شل ایجاد شده به کمک دستور
+`su postgres`
+کاربر خود را از روت به
+`postgres`
+تغییر می‌دهیم تا بتوانیم دیتای خود را وارد کنیم و به کمک
+`psql`
+کامند لاین postgres را بگیریم.
+برای دسترسی به فایل‌های سیستم host کافی است که فایل‌هایی که می‌خواهیم را در مسیر
+`/tmp/postgres_db`
+قرار دهیم. سپس به کمک psql دیتا‌های خود را در دیتابیس وارد می‌کنیم:
+```bash
+psql < auth.sql
+```
+سپس برای import داده‌ها از پورت فروارد کردن استفاده می‌کنیم. برای این کار کانتینر قبلی را کیل می‌کنیم و یکی دیگر با پورت فروارد ایجاد می‌کنیم.
+```bash
+sudo docker stop some-postgres
+sudo docker rm some-postgres
+sudo docker run -d \
+	--name some-postgres \
+	-e POSTGRES_PASSWORD=1234 \
+	-e PGDATA=/var/lib/postgresql/data/pgdata \
+	-v /tmp/postgres_db:/var/lib/postgresql/data \
+	-p 5432:5432 \
+	postgres:alpine
+```
+سپس به کمک dbeaver به دیتابیس وصل می‌شویم.
+![dbeaver](dbeaver.png)
+## Redis
+برای بالا آوردن ردیس کافی است که از دستور زیر استفاده کنیم:
+```
+sudo docker run --name some-redis -p 6379:6379 -d redis:alpine
+```
+برای وصل شدن به ردیس هم می‌توان از
+`redis-cli`
+استفاده کرد.
