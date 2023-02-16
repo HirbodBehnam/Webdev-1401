@@ -1,3 +1,4 @@
+require("dotenv").config();
 const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
 
@@ -17,7 +18,7 @@ const AuthService =
   grpc.loadPackageDefinition(packageDefinition).proto.AuthServerService;
 
 const client = new AuthService(
-  "localhost:21901",
+  `${process.env.GRPC_HOST}:${process.env.GRPC_PORT}`,
   grpc.credentials.createInsecure()
 );
 const validateToken = (req, res, next) => {
