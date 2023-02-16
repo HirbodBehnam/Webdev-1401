@@ -103,6 +103,33 @@ sudo docker run -d \
 ```
 سپس به کمک dbeaver به دیتابیس وصل می‌شویم.
 ![dbeaver](dbeaver.png)
+### Docker Compose
+برای اضافه کردن این دیتابیس به فایل
+docker composeی
+که در قسمت قبل ساختیم به صورت زیر عمل می‌کنیم:
+
+```‍‍‍yaml
+version: "3"
+
+services:
+  database:
+    restart: on-failure
+    image: postgres:alpine
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - "/tmp/postgres_db:/var/lib/postgresql/data"
+  nginx:
+    restart: on-failure
+    build:
+      context: ./
+      dockerfile: ./Frontend/Dockerfile
+    ports:
+      - "8000:80"
+```
 ## Redis
 برای بالا آوردن ردیس کافی است که از دستور زیر استفاده کنیم:
 ```
@@ -111,3 +138,32 @@ sudo docker run --name some-redis -p 6379:6379 -d redis:alpine
 برای وصل شدن به ردیس هم می‌توان از
 `redis-cli`
 استفاده کرد.
+### Docker Compose
+```yaml
+version: "3"
+
+services:
+  database:
+    restart: on-failure
+    image: postgres:alpine
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - "/tmp/postgres_db:/var/lib/postgresql/data"
+  redis:
+    restart: on-failure
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  nginx:
+    restart: on-failure
+    build:
+      context: ./
+      dockerfile: ./Frontend/Dockerfile
+    ports:
+      - "8000:80"
+```
+
