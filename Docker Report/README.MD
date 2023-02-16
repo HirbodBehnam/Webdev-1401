@@ -178,3 +178,66 @@ services:
 در اینجا در ابتدا مشخص می‌کنیم که این سرویس باید به کمک داکرفایل داخل فولدر AuthCore
 ساخته شود. در ادامه مشخص می‌کنیم که حتما قبل از روشن کردن این سرویس باید سرویس‌های ردیس و دیتابیس بالا و در حال اجرا باشند. در نهایت نیز environment variableهای مختص
 به سرویس را ست می‌کنیم. همان طور که مشخص است لازم نیست که ای پی ایمیج ردیس را ست کنیم و صرفا با استفاده از `redis` به جای ای پی آنرا ست می‌کنیم.
+### Nodejs
+برای بالا آوردن ticket service که به استفاده از node js نوشته شده است متشابه با auth core
+عمل می‌کنیم. داکر فایل ما به صورت زیر است:
+```dockerfile
+FROM node:alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+CMD ["node", "index.js"]
+```
+در این فایل صرفا بر پایه‌ی ایمیج node پروژه‌ی خود را build و اجرا می‌کنیم.
+#### Docker compose
+برای ساخت فایل
+docker compose
+نیز مانند go عمل می‌کنیم:
+```yaml
+version: "3"
+
+services:
+  ticketcore:
+    restart: on-failure
+    environment:
+      - HOST=0.0.0.0
+      - PORT=5000
+      - DB_USER=postgres
+      - DB_PASSWORD=1234
+      - DB_DATABASE=postgres
+      - DB_PORT=5432
+      - DB_HOST=database
+      - BANK_URL=1.1.1.1:8888
+      - BANK_RECEIPT_ID=42069420
+    build:
+      context: ./TicketService
+    depends_on:
+      - database
+      - authcore
+```
+### Nginx Reverse Proxy
+برای reverse proxy کردن نیز کافی است که routeهای خود را به فایل کانفیگ nginx اضافه کنیم:
+```
+server {
+    listen 80;
+
+    location / {
+        charset utf-8;
+        root /usr/share/nginx/html;
+    }
+
+    location /ticket/ {
+        add_header Access-Control-Allow-Origin $http_origin;
+        proxy_pass http://ticketcore:5000;
+    }
+
+    location /auth/ {
+        add_header Access-Control-Allow-Origin $http_origin;
+        proxy_pass http://authcore:51691;
+    }
+}
+
+```
+## Final Docker Compose File
+در نهایت تمامی فایل‌های docker compose که در قسمت‌های قبل ساختیم را یکجا قرار می‌دهیم.
