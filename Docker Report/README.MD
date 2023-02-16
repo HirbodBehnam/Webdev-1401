@@ -3,11 +3,11 @@
 در ابتدا می‌خواهیم که به کمک nginx ساخت خود را به صورت static بالا بیاوریم. برای اینکار از یک داکرفایل استفاده می‌کنیم که به صورت زیر است:
 ```dockerfile
 FROM nginx:stable-alpine
-COPY Frontend/default.conf /etc/nginx/conf.d/default.conf
-COPY Frontend/*.html /usr/share/nginx/html/
-COPY Frontend/src/ /usr/share/nginx/html/src/
-COPY Frontend/assets/ /usr/share/nginx/html/assets/
-COPY Frontend/dist/ /usr/share/nginx/html/dist/
+COPY default.conf /etc/nginx/conf.d/default.conf
+COPY *.html /usr/share/nginx/html/
+COPY src/ /usr/share/nginx/html/src/
+COPY assets/ /usr/share/nginx/html/assets/
+COPY dist/ /usr/share/nginx/html/dist/
 ```
 در خط اول آن از image رسمی nginx و تگ مخصوص به نسخه‌ی stable و alpine استفاده می‌کنیم.
 دلیل استفاده از نسخه‌ی alpine سبک بودن آن است.
@@ -36,8 +36,7 @@ services:
   nginx:
     restart: on-failure
     build:
-      context: ./
-      dockerfile: ./Frontend/Dockerfile
+      context: ./Frontend
     ports:
       - "8000:80"
 ```
@@ -108,37 +107,6 @@ sudo docker run -d \
 docker composeی
 که در قسمت قبل ساختیم به صورت زیر عمل می‌کنیم:
 
-```‍‍‍yaml
-version: "3"
-
-services:
-  database:
-    restart: on-failure
-    image: postgres:alpine
-    environment:
-      - POSTGRES_PASSWORD=1234
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    ports:
-      - "5432:5432"
-    volumes:
-      - "/tmp/postgres_db:/var/lib/postgresql/data"
-  nginx:
-    restart: on-failure
-    build:
-      context: ./
-      dockerfile: ./Frontend/Dockerfile
-    ports:
-      - "8000:80"
-```
-## Redis
-برای بالا آوردن ردیس کافی است که از دستور زیر استفاده کنیم:
-```
-sudo docker run --name some-redis -p 6379:6379 -d redis:alpine
-```
-برای وصل شدن به ردیس هم می‌توان از
-`redis-cli`
-استفاده کرد.
-### Docker Compose
 ```yaml
 version: "3"
 
@@ -153,17 +121,60 @@ services:
       - "5432:5432"
     volumes:
       - "/tmp/postgres_db:/var/lib/postgresql/data"
+```
+## Redis
+برای بالا آوردن ردیس کافی است که از دستور زیر استفاده کنیم:
+```bash
+sudo docker run --name some-redis -p 6379:6379 -d redis:alpine
+```
+برای وصل شدن به ردیس هم می‌توان از
+`redis-cli`
+استفاده کرد.
+### Docker Compose
+```yaml
+version: "3"
+
+services:
   redis:
     restart: on-failure
     image: redis:alpine
     ports:
       - "6379:6379"
-  nginx:
-    restart: on-failure
-    build:
-      context: ./
-      dockerfile: ./Frontend/Dockerfile
-    ports:
-      - "8000:80"
 ```
+## Backend
+### Go
+برای بالا آوردن سرویس auth core که با گو نوشته شده است در ابتدا نیاز به یک dockerfile داریم.
+این داکرفایل را به صورت زیر می‌سازیم:
+```dockerfile
+FROM golang:alpine
+WORKDIR /usr/src/goapp
+COPY AuthCore/ /usr/src/goapp/
+RUN go mod tidy
+RUN go build -o /authcore ./cmd/AuthCore
+CMD [ "/authcore" ]
+```
+کاری که این فایل انجام می‌دهد این است که در ابتدا بر پایه‌ی ایمیج گو یک کانتینر ایجاد می‌کند. سپس working directory را به مسیر مشخص شده تغییر می‌دهد و تمامی فایل‌های پوشه‌ی
+`AuthCore`
+که سورس کد‌های برنامه‌را در کانتینر کپی می‌کند. در انتها نیز با اجرا کردن دو دستور زیرش برنامه‌ را کامپایل می‌کند. در انتها نیز برنامه‌ی کامپایل شده را اجرا می‌کنیم.
+#### Docker Compose
+```yaml
+version: "3"
 
+services:
+  authcore:
+    restart: on-failure
+    environment:
+      - REDIS_URL=redis:6379
+      - REDIS_DB=1
+      - DATABASE_URL=postgres://postgres:1234@database:5432/postgres
+      - HTTP_LISTEN=0.0.0.0:51691
+      - GRPC_LISTEN_ADDRESS=0.0.0.0:21901
+    build:
+      context: ./AuthCore
+    depends_on:
+      - redis
+      - database
+```
+در اینجا در ابتدا مشخص می‌کنیم که این سرویس باید به کمک داکرفایل داخل فولدر AuthCore
+ساخته شود. در ادامه مشخص می‌کنیم که حتما قبل از روشن کردن این سرویس باید سرویس‌های ردیس و دیتابیس بالا و در حال اجرا باشند. در نهایت نیز environment variableهای مختص
+به سرویس را ست می‌کنیم. همان طور که مشخص است لازم نیست که ای پی ایمیج ردیس را ست کنیم و صرفا با استفاده از `redis` به جای ای پی آنرا ست می‌کنیم.
