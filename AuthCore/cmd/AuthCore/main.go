@@ -5,6 +5,8 @@ import (
 	"AuthCore/internal/database"
 	"AuthCore/pkg/oauth2"
 	"AuthCore/pkg/proto"
+	"os"
+
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
@@ -40,7 +42,12 @@ func startHTTPServer(oauth oauth2.Oauth2, db database.Database) {
 	g.GET("/refresh", apiServer.RefreshToken)
 	g.POST("/logout", apiServer.SignOutUser)
 	// Done!
-	err := g.RunTLS(getServeData())
+	var err error
+	if os.Getenv("TLS_CERT") != "" && os.Getenv("TLS_KEY") != "" {
+		err = g.RunTLS(getServeData())
+	} else {
+		err = g.Run(os.Getenv("HTTP_LISTEN"))
+	}
 	if err != nil {
 		log.WithError(err).Fatalln("cannot serve http server")
 	}
