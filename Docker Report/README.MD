@@ -229,15 +229,25 @@ server {
 
     location /ticket/ {
         add_header Access-Control-Allow-Origin $http_origin;
-        proxy_pass http://ticketcore:5000;
+        proxy_pass http://ticketcore:5000/;
     }
 
     location /auth/ {
         add_header Access-Control-Allow-Origin $http_origin;
-        proxy_pass http://authcore:51691;
+        proxy_pass http://authcore:51691/;
     }
 }
-
 ```
+یکی از مشکلاتی که به آن بر‌خوردیم این بود که زمان reverse proxy کردن خود
+`/ticket/` و `auth`
+در path url ظاهر می‌شدند. با کمی جست و جو متوجه شدیم که کافی است که آخرین کارکتر عبارت جلوی
+proxy_path
+برابر
+`/`
+باشد.
+
 ## Final Docker Compose File
 در نهایت تمامی فایل‌های docker compose که در قسمت‌های قبل ساختیم را یکجا قرار می‌دهیم.
+این فایل را می‌توانید از
+[این](https://github.com/HirbodBehnam/Webdev-1401/blob/master/docker-compose.yml)
+لینک مشاهده کنید.

@@ -41,6 +41,8 @@ services:
       - DB_HOST=database
       - BANK_URL=1.1.1.1:8888
       - BANK_RECEIPT_ID=42069420
+      - GRPC_HOST=authcore
+      - GRPC_PORT=21901
     build:
       context: ./TicketService
     depends_on:
