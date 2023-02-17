@@ -251,3 +251,57 @@ proxy_path
 این فایل را می‌توانید از
 [این](https://github.com/HirbodBehnam/Webdev-1401/blob/master/docker-compose.yml)
 لینک مشاهده کنید.
+
+## Locust
+### Auth core
+برای تست کردن لود auth core از سه تابع استفاده می‌کنیم. در ابتدای شروع برنامه به کمک تابع زیر یک یوزر جدید در سایت ایجاد می‌کنیم.
+```python
+def on_start(self):
+    self.client.post("/auth/signup", data={
+        "email": self.user,
+        "password": self.password,
+        "phone": random_string(),
+        "first_name": random_string(),
+        "second_name": random_string(),
+        "gender": "m",
+    })
+```
+`self.user` و `self.passowrd` زمان درست شدن کلاس و به صورت رندوم ساخته می‌شوند. سپس در توابع مختلف عملکرد برنامه را بررسی می‌کنیم. سه تابع زیر هر کدام قسمتی از endpointها را تست می‌کنند:
+```python
+@task
+def login(self):
+    response = self.client.post("/auth/login", data={
+        "email": self.user,
+        "password": self.password,
+    })
+@task
+def logout(self):
+    response = self.client.post("/auth/login", data={
+        "email": self.user,
+        "password": self.password,
+    })
+    if response.status_code != 200:
+        return
+    json_response = response.json()
+    self.client.post("/auth/logout", headers={
+        "Authorization": "Bearer " + json_response['access_token']
+    })
+@task
+def refresh(self):
+    response = self.client.post("/auth/login", data={
+        "email": self.user,
+        "password": self.password,
+    })
+    if response.status_code != 200:
+        return
+    json_response = response.json()
+    self.client.get("/auth/refresh?refresh_token=" + json_response['refresh_token'])
+```
+نمودار‌های خروجی به صورت زیر هستند:
+![locust-authcore-1.png](locust-authcore-1.png)
+![locust-authcore-2.png](locust-authcore-2.png)
+![locust-authcore-3.png](locust-authcore-3.png)
+همان طور که مشخص است تا زمانی که تعداد‌های یوزر‌های همزمان حدود ۸ نفر باشد سیستم با حداکثر توان خود کار می‌کند (چرا که کامپیوتر من ۸ هسته دارد.)
+وقتی که تعداد کاربر‌ها را بیشتر می‌کنیم
+RPS
+ما تغییری نمی‌کند و ثابت می‌ماند.
