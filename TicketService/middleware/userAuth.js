@@ -31,7 +31,7 @@ const validateToken = (req, res, next) => {
       console.log("response", response);
       next();
     } else {
-      res.json({ msg: "invalid token" });
+      res.status(401).json({ msg: "invalid token" });
     }
   });
 };

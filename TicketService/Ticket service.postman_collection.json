@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "d6cfbcb2-f4b6-4e5a-a245-70ddb41333ba",
+		"_postman_id": "013b1ea0-760e-46d4-9184-0f63c65acc56",
 		"name": "Ticket service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25454052"
+		"_exporter_id": "14537487"
 	},
 	"item": [
 		{
@@ -14,7 +14,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "4TA7UDNBECW6I3SHNZUR2XPI4A======",
+							"value": "{{TOKEN}}",
 							"type": "string"
 						}
 					]
@@ -22,17 +22,68 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:5000/purchases",
+					"raw": "{{TICKET_URL}}/purchases",
 					"host": [
-						"localhost"
+						"{{TICKET_URL}}"
 					],
-					"port": "5000",
 					"path": [
 						"purchases"
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Purchases History",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{TICKET_URL}}/purchases",
+							"host": [
+								"{{TICKET_URL}}"
+							],
+							"path": [
+								"purchases"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.22.1"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Feb 2023 12:43:14 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "16"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"10-xXhH428QCWrXoW7mTW9miQ9gVtQ\""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"purchases\": []\n}"
+				}
+			]
 		},
 		{
 			"name": "Fligths",
@@ -40,12 +91,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{TICKET_URL}}/localhost:5000/flights?origin=VNS&destination=EWR&departureDate=2023-02-13",
+					"raw": "{{TICKET_URL}}/flights?origin=VNS&destination=EWR&departureDate=2023-02-14",
 					"host": [
 						"{{TICKET_URL}}"
 					],
 					"path": [
-						"localhost:5000",
 						"flights"
 					],
 					"query": [
@@ -59,7 +109,7 @@
 						},
 						{
 							"key": "departureDate",
-							"value": "2023-02-13"
+							"value": "2023-02-14"
 						}
 					]
 				}
@@ -99,10 +149,10 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"_postman_previewlanguage": "Text",
+					"header": [],
 					"cookie": [],
-					"body": null
+					"body": ""
 				},
 				{
 					"name": "valid fligths search",
@@ -138,10 +188,75 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"_postman_previewlanguage": "Text",
+					"header": [],
 					"cookie": [],
-					"body": null
+					"body": ""
+				},
+				{
+					"name": "Fligths",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{TICKET_URL}}/flights?origin=VNS&destination=EWR&departureDate=2023-02-14",
+							"host": [
+								"{{TICKET_URL}}"
+							],
+							"path": [
+								"flights"
+							],
+							"query": [
+								{
+									"key": "origin",
+									"value": "VNS"
+								},
+								{
+									"key": "destination",
+									"value": "EWR"
+								},
+								{
+									"key": "departureDate",
+									"value": "2023-02-14"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.22.1"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Feb 2023 12:28:14 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "404"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"194-U+wn0sT9L6K79TKa/eeTpE3eCwI\""
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"flight_id\": \"AE9DD5\",\n        \"flight_serial\": 5,\n        \"origin\": \"VNS\",\n        \"destination\": \"EWR\",\n        \"departure_local_time\": \"2023-02-14T00:43:16.000Z\",\n        \"arrival_local_time\": \"2023-02-13T18:11:22.000Z\",\n        \"duration\": {\n            \"hours\": 3,\n            \"minutes\": 58,\n            \"seconds\": 6\n        },\n        \"y_price\": 134,\n        \"j_price\": 227,\n        \"f_price\": 327,\n        \"y_class_free_capacity\": \"407\",\n        \"j_class_free_capacity\": \"30\",\n        \"f_class_free_capacity\": \"30\",\n        \"equipment\": \"The Boeing Company Boeing 747-8-B748\"\n    }\n]"
 				}
 			]
 		},

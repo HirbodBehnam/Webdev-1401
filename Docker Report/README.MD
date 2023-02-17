@@ -305,3 +305,30 @@ def refresh(self):
 وقتی که تعداد کاربر‌ها را بیشتر می‌کنیم
 RPS
 ما تغییری نمی‌کند و ثابت می‌ماند.
+### Ticket Service
+به طریق مشابه برای سیستم تیکت تست می‌نویسیم. کد پایتون تستر در زیر آمده است:
+```python
+from locust import HttpUser, task
+
+class Ticket(HttpUser):
+    host = "http://127.0.0.1:8000"
+
+    @task
+    def flight_search(self):
+        self.client.get("/ticket/flights?origin=VNS&destination=EWR&departureDate=2023-02-14")
+
+    @task
+    def purchase_history(self):
+        self.client.get("/ticket/purchases", headers={
+            "Authorization": "Bearer XKUNLB5KDHWUAPGZ6KMEWUTNJM======"
+        })
+
+```
+بعد از اجرا کردن این کد به کمک locust نتایج را مشاهده می‌کنیم:
+![locust-ticket-1.png](locust-ticket-1.png)
+![locust-ticket-2.png](locust-ticket-2.png)
+![locust-ticket-3.png](locust-ticket-3.png)
+یکی از نکات جالبی که مشاهده می‌شود این است که در ابتدا تعداد درخواست بر ثانیه زیاد می‌شود (چرا که کلاینت‌ها در حال ایجاد شدن هستند)
+سپس پس از مدتی
+RPS
+شروع به افت کردن می‌کند. این موضوع می‌تواند به خاطر استفاده از یک ترد در event loop در nodejs باشد. اما سرجمع به نظر من سرعت این سرویس بسیار عالی است.

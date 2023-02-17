@@ -112,14 +112,12 @@ CREATE TABLE IF NOT EXISTS purchase
     last_name             VARCHAR,
     flight_serial         INTEGER,
     offer_price           INTEGER,
-    offer_class           VARCHAR
-    -- TODO: transactions
+    offer_class           VARCHAR,
+    transaction_id        INTEGER
 );
-
--- OFFERS
-
 CREATE VIEW available_offers AS
 SELECT flight.flight_id                                        AS flight_id,
+       flight.flight_serial                                    AS flight_serial,
        flight.origin                                           AS origin,
        flight.destination                                      AS destination,
        flight.departure_utc::TIMESTAMP WITH TIME ZONE AT TIME ZONE
