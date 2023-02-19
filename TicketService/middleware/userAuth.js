@@ -22,15 +22,16 @@ const client = new AuthService(
   grpc.credentials.createInsecure()
 );
 const validateToken = (req, res, next) => {
-  console.log("headers", req.headers);
+  // console.log("headers", req.headers);
   const token = req.headers.authorization.substring(7);
-  console.log("token", token);
+  // console.log("token", token);
   client.AuthorizeToken({ token }, (err, response) => {
     if (response) {
       req.user = response;
-      console.log("response", response);
+      // console.log("response", response);
       next();
     } else {
+      console.log("invalid token")
       res.status(401).json({ msg: "invalid token" });
     }
   });

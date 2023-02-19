@@ -60,18 +60,18 @@ const purchaseTicket = async (req, res) => {
   }
   const transactionUuid = uuid.v4();
   const bankResponse = await axios.post(
-    `http://${process.env.BANK_URL}/transaction/`,
+    `http://172.17.0.1:5050/transaction/`,
     {
       amount: flightPrice,
       receipt_id: process.env.BANK_RECEIPT_ID,
-      callback: `https://${process.env.HOST}:${process.env.PORT}/purchase/callback/${transactionUuid}`,
+      callback: `http://${process.env.HOST}:8000/ticket/purchase/callback/${transactionUuid}`,
     }
   );
   const transactionId = bankResponse.data.id;
   await db.none(
     "INSERT INTO transaction_draft (corresponding_user_id, flight_serial, offer_price, offer_class, transaction_id, uuid) VALUES ($1, $2, $3, $4, $5, $6)",
     [
-      req.user.id,
+      req.user.user_id,
       flightSerial,
       flightPrice,
       flightClass,
@@ -118,7 +118,9 @@ const transactionRedirect = async (req, res) => {
   let userTitle;
   if (correspondingUser.gender === "m") userTitle = "Mr.";
   else if (correspondingUser.gender === "f") userTitle = "Ms.";
-  else return res.sendStatus(500);
+  else {
+    return res.sendStatus(500);
+  }
   
   await db.none(
     "INSERT INTO purchase (corresponding_user_id, title, first_name, last_name, flight_serial, offer_price, offer_class, transaction_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
